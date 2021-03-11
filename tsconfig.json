@@ -27,6 +27,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     "strictPropertyInitialization": false,
-    "checkjs": true
+    "checkts": true
   }
 }
