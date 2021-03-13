@@ -6,13 +6,13 @@ const API_URL = 'http://localhost:4000';
 @Injectable({
   providedIn: 'root',
 })
-export class EventService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
-  getAllEvents() {
+  getAllUsers() {
     return this.http
       .get(
-        API_URL + '/events'
+        API_URL + '/users'
       )
       .pipe(tap( res => {
         const events = res.body
@@ -20,9 +20,18 @@ export class EventService {
       }));
   }
 
-  createEvent() {}
+  createUser(username: string, email: string, password: string) {
+    return this.http
+      .post(
+        API_URL + '/users',
+      { username, email, password },
+      { observe: 'response' }
+      )
+      .pipe(tap( res => {
+        const body = res.body
+        console.log(body)
+      }));
+  }
 
-  updateEvent() {}
-
-  deleteEvent() {}
+  deleteUser() {}
 }
