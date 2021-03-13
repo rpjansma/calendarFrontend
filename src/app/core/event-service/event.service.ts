@@ -7,18 +7,22 @@ const API_URL = 'http://localhost:4000';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {};
+  constructor(private http: HttpClient) {}
 
-  authenticate(username: string, password: string) {
+  getAllEvents() {
     return this.http
-      .post(
-        API_URL + '/users/authenticate',
-      { username, password },
-      { observe: 'response' }
+      .get(
+        API_URL + '/events'
       )
       .pipe(tap( res => {
-        const authToken = res.body
-        console.log(authToken)
+        const events = res.body
+        console.log(events)
       }));
-  };
+  }
+
+  createEvent() {}
+
+  updateEvent() {}
+
+  deleteEvent() {}
 }
