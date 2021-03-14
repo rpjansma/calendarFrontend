@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 
 @Component({
-  selector: 'app-calendar',
+  selector: 'c-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
 })
