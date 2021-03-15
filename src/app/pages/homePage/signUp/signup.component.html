@@ -1,0 +1,24 @@
+<h4 class="text-center">Register</h4>
+
+<form [formGroup]="registerForm" class="form mt-4" (submit)="register()">
+
+  <div class="form-group">
+    <input #usernameInput formControlName="username" class="form-control" placeholder="Username" autofocus>
+    <ap-vmessage *ngIf="registerForm.get('username')?.errors?.required" text="Username is required"></ap-vmessage>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="email" type="email" class="form-control" placeholder="Email" autofocus>
+    <ap-vmessage *ngIf="registerForm.get('password')?.errors?.required" text="Email is required"></ap-vmessage>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="password" type="password" class="form-control" placeholder="Password" autofocus>
+    <ap-vmessage *ngIf="registerForm.get('password')?.errors?.required" text="Password is required"></ap-vmessage>
+  </div>
+
+  <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary btn-block">Register</button>
+
+  <p>Already a user?<a [routerLink]="['']">Sign In!</a></p>
+
+</form>

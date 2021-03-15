@@ -13,6 +13,7 @@ const API_URL = 'http://localhost:4000';
 export class UserService {
 
   private userSubject = new BehaviorSubject<User>(null);
+  private username: string;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {
     this.tokenService.hasToken() &&
@@ -27,15 +28,24 @@ export class UserService {
   decodeAndNotify() {
     const token = this.tokenService.getToken();
     const user = decoder(token) as User;
+    this.username  = user.username;
     this.userSubject.next(user);
+  }
+
+  isLogged() {
+    return this.tokenService.hasToken();
   }
 
   logout () {
     this.tokenService.removeToken();
-    this.userSubject.next(null)
+    this.userSubject.next(null);
   }
 
   getUser() {
+    return this.userSubject.asObservable();
+  }
+
+  getUsername() {
     return this.userSubject.asObservable();
   }
 

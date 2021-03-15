@@ -1,5 +1,5 @@
-import { PlatformDetector } from './../../core/plataform-detector/plataform-detector.service';
-import { AuthService } from './../../core/auth/auth.service';
+import { PlatformDetector } from './../../../core/plataform-detector/plataform-detector.service';
+import { AuthService } from './../../../core/auth/auth.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -39,5 +39,9 @@ export class SignInComponent implements OnInit {
         alert('Invalid username or password');
       }
     );
+  }
+
+  signUp() {
+    this.router.navigate(['register'])
   }
 }
