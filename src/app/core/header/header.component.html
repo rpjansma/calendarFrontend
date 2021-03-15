@@ -1,9 +1,18 @@
 <header class="sticky-top">
-  <nav class="navbar navbar-ligth bg-white">
+  <nav class="navbar navbar-ligth bg-gray">
     <a class="navbar-brand">Tokenlab Tecnologia</a>
-      <div>
-        <i class="fa fa-user-circle"></i>
-        <a>Username</a>
-      </div>
+
+    <div *ngIf="(user$ | async) as user; else login">
+      <i class="fa fa-user-circle mr-1"></i>
+      <a class="mr-2">{{ user.username }}</a>
+      <a (click)="logout()">(Logout)</a>
+    </div>
+
+    <ng-template #login>
+      <span class="navbar-text">
+        Sign in
+      </span>
+    </ng-template>
+
   </nav>
 </header>
