@@ -15,7 +15,7 @@ export class EventService {
         API_URL + '/events'
       )
       .pipe(tap( res => {
-        const events = res.body
+        const events = res
         console.log(events)
       }));
   }
