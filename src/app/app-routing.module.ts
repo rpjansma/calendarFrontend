@@ -1,4 +1,4 @@
-import { CalendarComponent } from './pages/calendar/calendar.component';
+import { TimeTableComponent } from './pages/calendar/time-table.component';
 import { SignInComponent } from './pages/homePage/signIn/signin.component';
 import { SignUpComponent } from './pages/homePage/signUp/signup.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
@@ -16,18 +16,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: SignInComponent
+        component: SignInComponent,
       },
       {
         path: 'register',
-        component: SignUpComponent
+        component: SignUpComponent,
       },
-    ]
+    ],
   },
 
   {
     path: 'calendar',
-    component: CalendarComponent,
+    component: TimeTableComponent,
   },
 
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true})],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

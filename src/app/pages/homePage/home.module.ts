@@ -8,8 +8,8 @@ import { SignUpComponent } from './signUp/signup.component';
 import { HomeComponent } from './home.component';
 
 @NgModule({
-  declarations: [SignInComponent, SignUpComponent, HomeComponent],
   imports: [ReactiveFormsModule, CommonModule, VMessageModule, RouterModule],
+  declarations: [SignInComponent, SignUpComponent, HomeComponent],
 })
 
 export class HomeModule {}

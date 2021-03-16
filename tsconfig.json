@@ -27,6 +27,8 @@
     "strictInputAccessModifiers": true,
     "strictPropertyInitialization": false,
     "noImplicitAny":false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
   }
 }
