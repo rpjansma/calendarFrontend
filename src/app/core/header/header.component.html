@@ -1,6 +1,6 @@
 <header class="sticky-top">
-  <nav class="navbar navbar-ligth bg-gray">
-    <a class="navbar-brand">Tokenlab Tecnologia</a>
+  <nav class="navbar navbar-ligth bg-white">
+    <a class="navbar-brand ml-1">Tokenlab Tecnologia</a>
 
     <div *ngIf="(user$ | async) as user; else login">
       <i class="fa fa-user-circle mr-1"></i>
@@ -9,7 +9,7 @@
     </div>
 
     <ng-template #login>
-      <span [routerLink]="['']">
+      <span class="mr-2" [routerLink]="['']">
         Sign in
       </span>
     </ng-template>

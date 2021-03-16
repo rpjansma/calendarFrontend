@@ -21,9 +21,24 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[a-z0-9_\-]+$/),
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(20),
+        ],
+      ],
     });
   }
 
@@ -39,7 +54,7 @@ export class SignUpComponent implements OnInit {
         this.registerForm.reset();
         this.platformDetectorService.isBrowser() &&
           this.usernameInput.nativeElement.focus();
-        alert('Try again');
+        alert('ERROR: Try again, please.');
       }
     );
   }

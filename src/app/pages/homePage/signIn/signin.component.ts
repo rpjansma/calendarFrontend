@@ -40,8 +40,4 @@ export class SignInComponent implements OnInit {
       }
     );
   }
-
-  signUp() {
-    this.router.navigate(['register'])
-  }
 }

@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VMessageModule } from './../../shared/vmessage/vmessage.module';
 import { SignUpComponent } from './signUp/signup.component';
+import { HomeComponent } from './home.component';
 
 @NgModule({
-  declarations: [SignInComponent, SignUpComponent],
+  declarations: [SignInComponent, SignUpComponent, HomeComponent],
   imports: [ReactiveFormsModule, CommonModule, VMessageModule, RouterModule],
 })
+
 export class HomeModule {}
