@@ -17,7 +17,7 @@
     </div>
 
     <div class="modal-body">
-      <form [formGroup]="eventForm" class="form mt-4" (submit)="teste()">
+      <form [formGroup]="eventForm" class="form mt-4" (submit)="close()">
 
         <div class="form-group">
           <label>Title</label>
@@ -32,14 +32,14 @@
         </div>
 
         <div class="form-group">
-          <label>Start Date</label>
-          <input formControlName="start" type="date" class="form-control" autofocus>
+          <label>Start date</label>
+          <input formControlName="start" type="datetime-local" class="form-control" autofocus>
           <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required" text="Start date is required"></ap-vmessage>
         </div>
 
         <div class="form-group">
-          <label>End Date</label>
-          <input formControlName="end" type="date" class="form-control" autofocus>
+          <label>End date</label>
+          <input formControlName="end" type="datetime-local" class="form-control" autofocus>
         </div>
 
       </form>

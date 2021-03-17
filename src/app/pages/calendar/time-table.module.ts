@@ -10,7 +10,7 @@ import { TimeTableComponent } from './time-table.component';
 
 @NgModule({
   imports: [
-    CalendarModule.forRoot({
+  CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),

@@ -26,6 +26,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { EventService } from '../../core/event-service/event.service';
+import { TokenService } from '../../core/token/token.service';
 
 @Component({
   selector: 'c-calendar',
@@ -93,50 +94,13 @@ export class TimeTableComponent implements OnInit {
   };
 
   events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: this.colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: this.colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: this.colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: this.colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
   ];
 
   constructor(
     private eventService: EventService,
     private modal: NgbModal,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private tokenService: TokenService
   ) {}
 
   setView(view: CalendarView) {
@@ -201,20 +165,27 @@ export class TimeTableComponent implements OnInit {
     }
   }
 
+  getEventList() {
+    this.eventService
+    .getAllEvents()
+    .subscribe((data:any) => {
+      console.log(data);
+      this.events = data.data;
+    });
+    console.log(this.events)
+  }
+
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
+
+    const title = this.eventForm.get('title')?.value;
+    const description = this.eventForm.get('description')?.value;
+    const start = this.eventForm.get('start')?.value;
+    const end = this.eventForm.get('end')?.value;
+    const token = this.tokenService.getToken();
+    console.log(token)
+
+    this.eventService.createEvent(title, description, start, end, token).subscribe();
+
   }
 
   closeOpenMonthViewDay() {
@@ -225,8 +196,9 @@ export class TimeTableComponent implements OnInit {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
-  teste() {
-    console.log('Funcionou');
+  createEvent(title, description, start, end, token) {
+    this.eventService.createEvent(title, description, start, end, token);
+    return
   }
 
   ngOnInit(): void {
@@ -236,5 +208,9 @@ export class TimeTableComponent implements OnInit {
       start: ['', Validators.required],
       end: [''],
     });
+
+    this.getEventList();
+
   }
+
 }
