@@ -23,7 +23,8 @@ import {
 } from 'date-fns';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
@@ -42,6 +43,8 @@ export class TimeTableComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
   calendarView = CalendarView;
+
+  events: CalendarEvent[] = [];
 
   actions: CalendarEventAction[] = [
     {
@@ -93,9 +96,6 @@ export class TimeTableComponent implements OnInit {
     },
   };
 
-  events: CalendarEvent[] = [
-  ];
-
   constructor(
     private eventService: EventService,
     private modal: NgbModal,
@@ -144,48 +144,55 @@ export class TimeTableComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  open(content) {
-    this.modal.open(content).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
+  getTimezoneOffsetString(date: Date): string {
+  const timezoneOffset = date.getTimezoneOffset();
+  const hoursOffset = String(
+    Math.floor(Math.abs(timezoneOffset / 60))
+  ).padStart(2, '0');
+  const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
+  const direction = timezoneOffset > 0 ? '-' : '+';
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
+}
+
+  open(content) {
+    this.modal.open(content);
   }
 
   getEventList() {
-    this.eventService
-    .getAllEvents()
-    .subscribe((data:any) => {
-      console.log(data);
-      this.events = data.data;
+    this.eventService.getAllEvents().subscribe(res => {
+        console.log(res)
+        console.log(this.events)
+        for (let i = 0; i < res.length ; i++) {
+          this.events.push({
+            id: res[i].id,
+            title: res[i].title,
+            start: new Date(res[i].start),
+            end: new Date(res[i].end),
+            draggable: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+          });
+        }
+        console.log(this.events)
     });
-    console.log(this.events)
   }
 
   addEvent(): void {
-
     const title = this.eventForm.get('title')?.value;
     const description = this.eventForm.get('description')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
     const token = this.tokenService.getToken();
-    console.log(token)
+    console.log(token);
 
-    this.eventService.createEvent(title, description, start, end, token).subscribe();
+    this.eventService
+      .createEvent(title, description, start, end, token)
+      .subscribe();
 
+    this.getEventList();
   }
 
   closeOpenMonthViewDay() {
@@ -198,7 +205,7 @@ export class TimeTableComponent implements OnInit {
 
   createEvent(title, description, start, end, token) {
     this.eventService.createEvent(title, description, start, end, token);
-    return
+    return;
   }
 
   ngOnInit(): void {
@@ -210,7 +217,5 @@ export class TimeTableComponent implements OnInit {
     });
 
     this.getEventList();
-
   }
-
 }

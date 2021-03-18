@@ -7,10 +7,11 @@ import { VMessageModule } from '../../shared/vmessage/vmessage.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { TimeTableComponent } from './time-table.component';
+import { EventService } from '../../core/event-service/event.service';
 
 @NgModule({
   imports: [
-  CalendarModule.forRoot({
+    CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
@@ -21,5 +22,6 @@ import { TimeTableComponent } from './time-table.component';
   ],
   exports: [],
   declarations: [TimeTableComponent],
+  providers: [EventService],
 })
 export class TimeTableModule {}

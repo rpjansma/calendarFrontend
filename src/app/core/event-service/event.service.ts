@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
+import { CalendarEvent } from 'angular-calendar';
 import { Event } from '../../shared/interfaces/event-interface';
 
 const API_URL = 'http://localhost:4000';
@@ -12,15 +13,9 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   getAllEvents() {
-    return this.http.get(API_URL + '/events').pipe(
-      map((data) => {
-        return data;
-      }),
-      catchError((error) => {
-        return throwError('Something went wrong!');
-      })
-    );
+    return this.http.get<Event[]>(API_URL + '/events', { observe: 'response'}).pipe(map(res => { return res.body }));
   }
+
 
   createEvent(
     title: string,
