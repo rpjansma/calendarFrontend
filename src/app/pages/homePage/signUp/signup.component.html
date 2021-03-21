@@ -6,7 +6,7 @@
 
     <div class="form-group">
       <input #usernameInput formControlName="username" class="form-control" placeholder="Username" autofocus>
-      <ap-vmessage *ngIf="registerForm.get('username')?.errors?.required" text="Username is required"></ap-vmessage>
+      <ap-vmessage *ngIf="registerForm.get('username')?.errors?.required && registerForm.controls['username'].touched" text="Username is required"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('username')?.errors?.minlength" text="Minimum length is 3"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('username')?.errors?.maxlength" text="Maximum length is 20"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('username')?.errors?.pattern"
@@ -15,13 +15,13 @@
 
     <div class="form-group">
       <input formControlName="email" type="email" class="form-control" placeholder="Email" autofocus>
-      <ap-vmessage *ngIf="registerForm.get('password')?.errors?.required" text="Email is required"></ap-vmessage>
-      <ap-vmessage *ngIf="registerForm.get('password')?.errors?.email" text="Invalid email"></ap-vmessage>
+      <ap-vmessage *ngIf="registerForm.get('email')?.errors?.required && registerForm.controls['email'].touched" text="Email is required"></ap-vmessage>
+      <ap-vmessage *ngIf="registerForm.get('email')?.errors?.email" text="Invalid email"></ap-vmessage>
     </div>
 
     <div class="form-group">
       <input formControlName="password" type="password" class="form-control" placeholder="Password" autofocus>
-      <ap-vmessage *ngIf="registerForm.get('password')?.errors?.required" text="Password is required"></ap-vmessage>
+      <ap-vmessage *ngIf="registerForm.get('password')?.errors?.required && registerForm.controls['password'].touched" text="Password is required"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('password')?.errors?.minlength" text="Minimum length is 6"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('password')?.errors?.maxlength" text="Maximum length is 20"></ap-vmessage>
     </div>
