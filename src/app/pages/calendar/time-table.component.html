@@ -1,4 +1,4 @@
-<div class="container-fluid mt-3">
+<div class="container mt-5 justify-content">
 
   <div class="float-right">
     <div class="btn-group">
@@ -9,48 +9,50 @@
   </div>
 
   <ng-template #modalEvent let-close="close">
-    <div class="modal-header">
-      <h5 class="modal-title">New Event</h5>
-      <button type="button" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+      <div class="modal-header">
+        <h5 class="modal-title">New Event</h5>
+        <button type="button" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-    <div class="modal-body">
-      <form [formGroup]="eventForm" class="form mt-4" (submit)="close()">
+      <div class="modal-body">
+        <form [formGroup]="eventForm" class="form mt-4" (submit)="close()">
 
-        <div class="form-group">
-          <label>Title</label>
-          <input formControlName="title" class="form-control" autofocus>
-          <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required" text="Title is required"></ap-vmessage>
-        </div>
+          <div class="form-group">
+            <label>Title</label>
+            <input formControlName="title" class="form-control" autofocus>
+            <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required" text="Title is required"></ap-vmessage>
+          </div>
 
-        <div class="form-group">
-          <label>Description</label>
-          <input formControlName="description" class="form-control" autofocus>
-          <ap-vmessage *ngIf="eventForm.get('description')?.errors?.required" text="Description is required"></ap-vmessage>
-        </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input formControlName="description" class="form-control" autofocus>
+            <ap-vmessage *ngIf="eventForm.get('description')?.errors?.required" text="Description is required">
+            </ap-vmessage>
+          </div>
 
-        <div class="form-group">
-          <label>Start date</label>
-          <input formControlName="start" type="datetime-local" class="form-control" autofocus>
-          <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required" text="Start date is required"></ap-vmessage>
-        </div>
+          <div class="form-group">
+            <label>Start date</label>
+            <input formControlName="start" type="datetime-local" class="form-control" autofocus>
+            <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required" text="Start date is required"></ap-vmessage>
+          </div>
 
-        <div class="form-group">
-          <label>End date</label>
-          <input formControlName="end" type="datetime-local" class="form-control" autofocus>
-        </div>
+          <div class="form-group">
+            <label>End date</label>
+            <input formControlName="end" type="datetime-local" class="form-control" autofocus>
+          </div>
 
-      </form>
-    </div>
+        </form>
+      </div>
 
-    <div class="modal-footer">
-      <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="addEvent()">
-        Add Event
-      </button>
-      <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
-    </div>
+      <div class="modal-footer">
+        <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary"
+          (click)="addEvent()">
+          Add Event
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+      </div>
   </ng-template>
 
 

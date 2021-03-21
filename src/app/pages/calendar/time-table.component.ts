@@ -24,7 +24,7 @@ import {
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
-
+import $ from 'jquery';
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
@@ -78,8 +78,6 @@ export class TimeTableComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   activeDayIsOpen: boolean = false;
-
-  closeResult = '';
 
   colors: any = {
     red: {
@@ -144,39 +142,25 @@ export class TimeTableComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  getTimezoneOffsetString(date: Date): string {
-  const timezoneOffset = date.getTimezoneOffset();
-  const hoursOffset = String(
-    Math.floor(Math.abs(timezoneOffset / 60))
-  ).padStart(2, '0');
-  const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
-  const direction = timezoneOffset > 0 ? '-' : '+';
-
-  return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
-}
-
   open(content) {
     this.modal.open(content);
   }
 
   getEventList() {
-    this.eventService.getAllEvents().subscribe(res => {
-        console.log(res)
-        console.log(this.events)
-        for (let i = 0; i < res.length ; i++) {
-          this.events.push({
-            id: res[i].id,
-            title: res[i].title,
-            start: new Date(res[i].start),
-            end: new Date(res[i].end),
-            draggable: true,
-            resizable: {
-              beforeStart: true,
-              afterEnd: true,
-            },
-          });
-        }
-        console.log(this.events)
+    this.eventService.getAllEvents().subscribe((res) => {
+      for (let i = 0; i < res.length; i++) {
+        this.events.push({
+          id: res[i].id,
+          title: res[i].title,
+          start: new Date(res[i].start),
+          end: new Date(res[i].end),
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+        });
+      }
     });
   }
 
