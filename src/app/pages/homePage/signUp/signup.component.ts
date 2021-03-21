@@ -17,9 +17,7 @@ export class SignUpComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private platformDetectorService: PlatformDetector
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.registerForm = this.formBuilder.group({
       username: [
         '',
@@ -41,6 +39,8 @@ export class SignUpComponent implements OnInit {
       ],
     });
   }
+
+  ngOnInit(): void {}
 
   register() {
     const username = this.registerForm.get('username')?.value;

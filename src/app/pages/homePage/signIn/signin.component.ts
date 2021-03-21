@@ -16,14 +16,14 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private platformDetectorService: PlatformDetector
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
+
+  ngOnInit(): void {};
 
   login() {
     const username = this.loginForm.get('username')?.value;
