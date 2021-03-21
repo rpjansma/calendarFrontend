@@ -3,6 +3,7 @@ import { SignInComponent } from './pages/homePage/signIn/signin.component';
 import { SignUpComponent } from './pages/homePage/signUp/signup.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { AuthGuard } from './core/auth/auth.guard';
+import { CalendarGuard } from './core/auth/calendar.guard';
 import { HomeComponent } from './pages/homePage/home.component';
 
 import { NgModule } from '@angular/core';
@@ -27,6 +28,7 @@ const routes: Routes = [
 
   {
     path: 'calendar',
+    canActivate: [CalendarGuard],
     component: TimeTableComponent,
   },
 
