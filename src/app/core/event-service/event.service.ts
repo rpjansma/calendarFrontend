@@ -13,9 +13,14 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   getAllEvents() {
-    return this.http.get<Event[]>(API_URL + '/events', { observe: 'response'}).pipe(map(res => { return res.body }));
+    return this.http
+      .get<Event[]>(API_URL + '/events', { observe: 'response' })
+      .pipe(
+        map((res) => {
+          return res.body;
+        })
+      );
   }
-
 
   createEvent(
     title: string,

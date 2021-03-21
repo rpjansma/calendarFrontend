@@ -1,18 +1,27 @@
-<header class="sticky-top">
-  <nav class="navbar navbar-ligth bg-silver">
-    <a class="navbar-brand ml-1">Tokenlab Tecnologia</a>
-
-    <div *ngIf="(user$ | async) as user; else login">
-      <i class="fa fa-user-circle mr-1"></i>
-      <a class="mr-2">{{ user.username }}</a>
-      <a color="red" (click)="logout()">(Logout)</a>
-    </div>
-
-    <ng-template #login>
-      <span class="mr-2" [routerLink]="['']">
-        Sign in
+<header>
+  <nav class="navbar fixed-top navbar-ligth" style="background-color: #eeeeee;">
+    <div class="container-fluid">
+      <span class="navbar-brand ml-1 mb-1">
+        <i class="fa fa-calendar" aria-hidden="true">
+          <span placement="top" ngbTooltip="Adicione seus eventos!"> Calendariozinho</span>
+        </i>
       </span>
-    </ng-template>
 
+      <div class="p-2 bd-highlight" *ngIf="(user$ | async) as user; else login">
+        <i class="fa fa-user-circle mr-1"></i>
+        <span class="mr-2">{{ user.username }}, be welcome!</span>
+        <div class="text-right">
+          <span id="logout" class="mr-1 font-italic">Logout</span>
+          <a class="fa fa-sign-out" (click)="logout()"></a>
+        </div>
+      </div>
+
+      <ng-template #login>
+        <span class="" [routerLink]="['']" aria-hidden="true">Sign in
+          <a class="fa fa-sign-in"></a>
+        </span>
+
+      </ng-template>
+    </div>
   </nav>
 </header>
