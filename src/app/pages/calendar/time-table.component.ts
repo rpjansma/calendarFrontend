@@ -23,7 +23,7 @@ import {
 } from 'date-fns';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
@@ -74,7 +74,7 @@ export class TimeTableComponent implements OnInit {
     password: string;
   };
 
-  refresh: Subject<any> = new Subject();
+  refresh: BehaviorSubject<any> = new BehaviorSubject(null);
 
   activeDayIsOpen: boolean = false;
 
@@ -170,6 +170,7 @@ export class TimeTableComponent implements OnInit {
         this.events.push({
           id: res[i].id,
           title: res[i].title,
+          // description: res[i].description,
           start: new Date(res[i].start),
           end: new Date(res[i].end),
           draggable: true,
@@ -179,6 +180,7 @@ export class TimeTableComponent implements OnInit {
           },
         });
       }
+      this.refresh.next(this.events)
     });
   }
 
