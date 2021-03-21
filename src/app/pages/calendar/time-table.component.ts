@@ -78,8 +78,6 @@ export class TimeTableComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
-  closeResult = '';
-
   colors: any = {
     red: {
       primary: '#ad2121',
@@ -150,6 +148,7 @@ export class TimeTableComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
+
   getTimezoneOffsetString(date: Date): string {
     const timezoneOffset = date.getTimezoneOffset();
     const hoursOffset = String(
@@ -167,8 +166,6 @@ export class TimeTableComponent implements OnInit {
 
   getEventList() {
     this.eventService.getAllEvents().subscribe((res) => {
-      console.log(res);
-      console.log(this.events);
       for (let i = 0; i < res.length; i++) {
         this.events.push({
           id: res[i].id,
@@ -182,7 +179,6 @@ export class TimeTableComponent implements OnInit {
           },
         });
       }
-      console.log(this.events);
     });
   }
 

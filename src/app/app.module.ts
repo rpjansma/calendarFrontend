@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ErrorsModule } from './pages/errors/errors.module';
 import { TimeTableModule } from './pages/calendar/time-table.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { TimeTableModule } from './pages/calendar/time-table.module';
     CoreModule,
     ErrorsModule,
     TimeTableModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
