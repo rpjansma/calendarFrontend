@@ -21,10 +21,9 @@ import {
   isSameMonth,
   addHours,
 } from 'date-fns';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
-
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
@@ -101,7 +100,14 @@ export class TimeTableComponent implements OnInit {
     private modal: NgbModal,
     private formBuilder: FormBuilder,
     private tokenService: TokenService
-  ) {}
+  ) {
+    this.eventForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      start: ['', Validators.required],
+      end: [''],
+    });
+  }
 
   setView(view: CalendarView) {
     this.view = view;
@@ -145,38 +151,38 @@ export class TimeTableComponent implements OnInit {
   }
 
   getTimezoneOffsetString(date: Date): string {
-  const timezoneOffset = date.getTimezoneOffset();
-  const hoursOffset = String(
-    Math.floor(Math.abs(timezoneOffset / 60))
-  ).padStart(2, '0');
-  const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
-  const direction = timezoneOffset > 0 ? '-' : '+';
+    const timezoneOffset = date.getTimezoneOffset();
+    const hoursOffset = String(
+      Math.floor(Math.abs(timezoneOffset / 60))
+    ).padStart(2, '0');
+    const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
+    const direction = timezoneOffset > 0 ? '-' : '+';
 
-  return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
-}
+    return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
+  }
 
   open(content) {
     this.modal.open(content);
   }
 
   getEventList() {
-    this.eventService.getAllEvents().subscribe(res => {
-        console.log(res)
-        console.log(this.events)
-        for (let i = 0; i < res.length ; i++) {
-          this.events.push({
-            id: res[i].id,
-            title: res[i].title,
-            start: new Date(res[i].start),
-            end: new Date(res[i].end),
-            draggable: true,
-            resizable: {
-              beforeStart: true,
-              afterEnd: true,
-            },
-          });
-        }
-        console.log(this.events)
+    this.eventService.getAllEvents().subscribe((res) => {
+      console.log(res);
+      console.log(this.events);
+      for (let i = 0; i < res.length; i++) {
+        this.events.push({
+          id: res[i].id,
+          title: res[i].title,
+          start: new Date(res[i].start),
+          end: new Date(res[i].end),
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+        });
+      }
+      console.log(this.events);
     });
   }
 
@@ -209,13 +215,6 @@ export class TimeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.eventForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      start: ['', Validators.required],
-      end: [''],
-    });
-
     this.getEventList();
   }
 }
