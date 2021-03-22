@@ -1,10 +1,10 @@
-<header>
-  <nav class="navbar fixed-top navbar-ligth" style="background-color: #eeeeee;">
+<header class="fixed-top">
+  <nav class="navbar navbar-ligth" style="background-color: #eeeeee;">
     <div class="container-fluid">
-      <span class="navbar-brand ml-1 mb-1">
-        <i class="fa fa-calendar" aria-hidden="true">
-          <span placement="top" ngbTooltip="Adicione seus eventos!"> Calendariozinho</span>
-        </i>
+
+      <span class="navbar-brand">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        Calendariozinho
       </span>
 
       <div class="p-2 bd-highlight" *ngIf="(user$ | async) as user; else login">
@@ -20,8 +20,8 @@
         <span class="" [routerLink]="['']" aria-hidden="true">Sign in
           <a class="fa fa-sign-in"></a>
         </span>
-
       </ng-template>
+
     </div>
   </nav>
 </header>

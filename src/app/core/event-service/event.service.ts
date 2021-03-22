@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { Event } from '../../shared/interfaces/event-interface';
 
@@ -22,17 +22,11 @@ export class EventService {
       );
   }
 
-  createEvent(
-    title: string,
-    description: string,
-    start: Date,
-    end: Date,
-    token: string
-  ) {
+  createEvent(title: string, start: Date, end: Date, token: string) {
     return this.http
       .post(
         API_URL + '/events',
-        { title, description, start, end, token },
+        { title, start, end, token },
         { observe: 'response' }
       )
       .pipe(
@@ -43,7 +37,21 @@ export class EventService {
       );
   }
 
-  updateEvent() {}
+  updateEvent(
+    id: string,
+    title: string,
+    start: Date,
+    end: Date,
+    token: string
+  ) {
+    return this.http.put(
+      API_URL + '/events',
+      { id, title, start, end, token },
+      { observe: 'response' }
+    );
+  }
 
-  deleteEvent() {}
+  deleteEvent(id: string, token: string) {
+    return this.http.delete(`API_URL + '/events' + ${id}`, {});
+  }
 }
