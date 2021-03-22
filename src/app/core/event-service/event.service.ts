@@ -51,7 +51,7 @@ export class EventService {
     );
   }
 
-  deleteEvent(id: string, token: string) {
-    return this.http.delete(`API_URL + '/events' + ${id}`, {});
+  deleteEvent(id: string) {
+    return this.http.delete(API_URL + '/events/' + id);
   }
 }

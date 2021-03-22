@@ -57,7 +57,7 @@ export class TimeTableComponent implements OnInit {
       label: '<i class="fa fa-trash"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
+        this.deleteEvent(event);
         this.handleEvent('Deleted', event);
       },
     },
@@ -77,21 +77,6 @@ export class TimeTableComponent implements OnInit {
   refresh: BehaviorSubject<any> = new BehaviorSubject(null);
 
   activeDayIsOpen: boolean = false;
-
-  colors: any = {
-    red: {
-      primary: '#ad2121',
-      secondary: '#FAE3E3',
-    },
-    blue: {
-      primary: '#1e90ff',
-      secondary: '#D1E8FF',
-    },
-    yellow: {
-      primary: '#e3bc08',
-      secondary: '#FDF1BA',
-    },
-  };
 
   constructor(
     private eventService: EventService,
@@ -178,7 +163,7 @@ export class TimeTableComponent implements OnInit {
           },
         });
       }
-      this.refresh.next(this.events)
+      this.refresh.next(this.events);
     });
   }
 
@@ -188,10 +173,8 @@ export class TimeTableComponent implements OnInit {
     const end = this.eventForm.get('end')?.value;
     const token = this.tokenService.getToken();
 
-    this.eventService
-      .createEvent(title, start, end, token)
-      .subscribe();
-    this.events = []
+    this.eventService.createEvent(title, start, end, token).subscribe();
+    this.events = [];
     this.fetchEventList();
   }
 
@@ -202,19 +185,13 @@ export class TimeTableComponent implements OnInit {
     const end = this.eventForm.get('end')?.value;
     const token = this.tokenService.getToken();
 
-    this.eventService
-      .updateEvent(id, title, start, end, token)
-      .subscribe();
-    this.events = []
+    this.eventService.updateEvent(id, title, start, end, token).subscribe();
+    this.events = [];
     this.fetchEventList();
   }
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
   createEvent(title, start, end, token) {
@@ -225,6 +202,16 @@ export class TimeTableComponent implements OnInit {
   updateEvent(id, title, start, end, token) {
     this.eventService.updateEvent(id, title, start, end, token);
     return;
+  }
+
+  deleteEvent(eventToDelete: CalendarEvent, id: any = '') {
+    this.events = this.events.filter((event) => event !== eventToDelete);
+    console.log(event);
+    console.log(eventToDelete);
+    id = eventToDelete.id;
+    console.log(id);
+    this.eventService.deleteEvent(id).subscribe();
+    this.refresh.next(this.events);
   }
 
   ngOnInit(): void {
