@@ -10,48 +10,42 @@
 
 
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
-    <header class="modal-header">
+    <div class="modal-header">
       <h4 class="modal-title">New Event</h4>
       <button type="button" class="close" aria-label="Close" (click)="close()">
         <span aria-hidden="true">&times;</span>
       </button>
-    </header>
+    </div>
 
-    <body class="modal-body">
-      <form [formGroup]="eventForm" class="form mt-4" (click)="close()">
+    <div class="modal-body">
+      <form [formGroup]="eventForm" class="form">
 
         <div class="form-group">
-          <label>Title</label>
+          <label>description</label>
           <input formControlName="title" class="form-control" autofocus>
           <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched" text="Title is required"></ap-vmessage>
         </div>
 
         <div class="form-group">
-          <label>Description</label>
-          <input formControlName="description" class="form-control" autofocus>
-          <ap-vmessage *ngIf="eventForm.get('description')?.errors?.required && eventForm.controls['description'].touched" text="Description is required"></ap-vmessage>
-        </div>
-
-        <div class="form-group">
-          <label>Start date</label>
+          <label>start date</label>
           <input formControlName="start" type="datetime-local" class="form-control" autofocus>
           <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required && eventForm.controls['start'].touched" text="Start date is required"></ap-vmessage>
         </div>
 
         <div class="form-group">
-          <label>End date</label>
+          <label>end date</label>
           <input formControlName="end" type="datetime-local" class="form-control" autofocus>
         </div>
 
       </form>
-    </body>
+    </div>
 
-    <footer class="modal-footer">
+    <div class="modal-footer">
       <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="addEvent()">
         Add Event
       </button>
       <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
-    </footer>
+    </div>
   </ng-template>
 
 
@@ -121,7 +115,7 @@
     </button>
   </header>
 
-  <body class="modal-body">
+  <div class="modal-body">
     <div>
       Action:
       <pre>{{ modalContentData?.action }}</pre>
@@ -130,7 +124,7 @@
       Event:
       <pre>{{ modalContentData?.event | json }}</pre>
     </div>
-  </body>
+  </div>
 
   <footer class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close()">
