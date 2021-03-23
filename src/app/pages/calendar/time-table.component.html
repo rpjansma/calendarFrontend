@@ -21,20 +21,24 @@
       <form [formGroup]="eventForm" class="form">
 
         <div class="form-group">
-          <label>description</label>
+          <label>Title</label>
           <input formControlName="title" class="form-control" autofocus>
-          <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched" text="Title is required"></ap-vmessage>
+          <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched"
+            text="Title is required"></ap-vmessage>
         </div>
 
         <div class="form-group">
-          <label>start date</label>
-          <input formControlName="start" type="datetime-local" class="form-control" autofocus>
-          <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required && eventForm.controls['start'].touched" text="Start date is required"></ap-vmessage>
+          <label>Start date</label>
+          <input formControlName="start" type="datetime-local" class="form-control">
+          <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required && eventForm.controls['start'].touched"
+            text="Start date is required"></ap-vmessage>
         </div>
 
         <div class="form-group">
-          <label>end date</label>
-          <input formControlName="end" type="datetime-local" class="form-control" autofocus>
+          <label>End date</label>
+          <input formControlName="end" type="datetime-local" class="form-control">
+          <ap-vmessage *ngIf="eventForm.get('end')?.errors?.required && eventForm.controls['end'].touched"
+          text="End date is required"></ap-vmessage>
         </div>
 
       </form>
@@ -92,15 +96,15 @@
 
     <mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" *ngSwitchCase="calendarView.Month"
       [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
-      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+      (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-month-view>
 
     <mwl-calendar-week-view *ngSwitchCase="calendarView.Week" [viewDate]="viewDate" [events]="events"
-      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+      (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-week-view>
 
     <mwl-calendar-day-view *ngSwitchCase="calendarView.Day" [viewDate]="viewDate" [events]="events"
-      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
 
   </div>
@@ -116,17 +120,36 @@
   </header>
 
   <div class="modal-body">
-    <div>
-      Action:
-      <pre>{{ modalContentData?.action }}</pre>
-    </div>
-    <div>
-      Event:
-      <pre>{{ modalContentData?.event | json }}</pre>
-    </div>
+    <form [formGroup]="eventForm" class="form">
+
+      <div class="form-group">
+        <label>Title</label>
+        <input formControlName="title" class="form-control" placeholder="{{ modalContentData?.event.title }}" autofocus>
+        <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched"
+          text="Title is required"></ap-vmessage>
+      </div>
+
+      <div class="form-group">
+        <label>Start date</label>
+        <input formControlName="start" type="datetime-local" class="form-control">
+        <ap-vmessage *ngIf="eventForm.get('start')?.errors?.required && eventForm.controls['start'].touched"
+          text="Start date is required"></ap-vmessage>
+      </div>
+
+      <div class="form-group">
+        <label>End date</label>
+        <input formControlName="end" type="datetime-local" class="form-control">
+        <ap-vmessage *ngIf="eventForm.get('end')?.errors?.required && eventForm.controls['end'].touched"
+          text="End date is required"></ap-vmessage>
+      </div>
+
+    </form>
   </div>
 
   <footer class="modal-footer">
+    <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="editEvent()">
+      Update Event
+    </button>
     <button type="button" class="btn btn-outline-secondary" (click)="close()">
       Close
     </button>
