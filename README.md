@@ -1,6 +1,7 @@
 # CalendarFrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
+<p>This project is the view for this <a href="https://github.com/rpjansma/calendar">back-end</a></p>
 
 ## Development server
 
