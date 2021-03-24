@@ -44,14 +44,21 @@ export class EventService {
     end: Date,
     token: string
   ) {
-    return this.http.put(
-      API_URL + '/events',
-      { id, title, start, end, token },
+    return this.http
+    .put(
+      API_URL + '/events/' + id,
+      { title, start, end, token },
       { observe: 'response' }
+    )
+    .pipe(
+        tap((res) => {
+          const body = res.body;
+          console.log(body);
+        })
     );
   }
 
-  deleteEvent(id: string, token: string) {
-    return this.http.delete(`API_URL + '/events' + ${id}`, {});
+  deleteEvent(id: string) {
+    return this.http.delete(API_URL + '/events/' + id);
   }
 }
