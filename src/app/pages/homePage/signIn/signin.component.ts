@@ -3,6 +3,7 @@ import { AuthService } from './../../../core/auth/auth.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import $ from "jquery"
 
 @Component({
   templateUrl: './signin.component.html',
@@ -22,6 +23,7 @@ export class SignInComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
+
 
   ngOnInit(): void {};
 

@@ -108,7 +108,7 @@ export class TimeTableComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({
+  eventTimesChanged ({
     event,
     newStart,
     newEnd,
@@ -123,7 +123,12 @@ export class TimeTableComponent implements OnInit {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+    const token = this.tokenService.getToken();
+    this.eventService
+      .updateEvent(event.id, event.title, event.start, event.end, token)
+      .subscribe();
+
+    this.closeOpenMonthViewDay();
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -194,7 +199,7 @@ export class TimeTableComponent implements OnInit {
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
-    this.activeDayIsOpen = false;
+    this.closeOpenMonthViewDay();
   }
 
   deleteEvent(eventToDelete: CalendarEvent, id: any = '') {
@@ -202,7 +207,7 @@ export class TimeTableComponent implements OnInit {
     id = eventToDelete.id;
     this.eventService.deleteEvent(id).subscribe();
     this.refresh.next(this.events);
-    this.activeDayIsOpen = false;
+    this.closeOpenMonthViewDay();
   }
 
   createEvent(title, start, end, token) {
