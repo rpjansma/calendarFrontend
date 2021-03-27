@@ -1,12 +1,6 @@
-<div class="container-fluid mt-5 justify-content">
+<body class="container-fluid mt-5 justify-content pt-0 ">
 
-  <div class="float-right">
-    <div class="btn-group">
-      <button class="btn btn-primary" (click)="open(modalEvent)">
-        +Event
-      </button>
-    </div>
-  </div>
+
 
 
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
@@ -38,7 +32,7 @@
           <label>End date</label>
           <input formControlName="end" type="datetime-local" class="form-control">
           <ap-vmessage *ngIf="eventForm.get('end')?.errors?.required && eventForm.controls['end'].touched"
-          text="End date is required"></ap-vmessage>
+            text="End date is required"></ap-vmessage>
         </div>
 
       </form>
@@ -72,9 +66,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
-      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-    </div>
+
 
     <div class="col-md-4">
       <div class="btn-group">
@@ -90,7 +82,18 @@
       </div>
     </div>
 
+    <div class="col-md-4">
+      <button class="btn btn-primary " (click)="open(modalEvent)">
+        +Event
+      </button>
+    </div>
+
   </div>
+
+  <div class="text-center">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+
 
   <div [ngSwitch]="view">
 
@@ -104,11 +107,11 @@
     </mwl-calendar-week-view>
 
     <mwl-calendar-day-view *ngSwitchCase="calendarView.Day" [viewDate]="viewDate" [events]="events"
-    (eventTimesChanged)="eventTimesChanged($event)">
+      (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
 
   </div>
-</div>
+</body>
 
 
 <ng-template #modalContent let-close="close">

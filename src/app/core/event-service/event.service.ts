@@ -38,7 +38,7 @@ export class EventService {
   }
 
   updateEvent(
-    id: string,
+    id: any,
     title: string,
     start: Date,
     end: Date,
