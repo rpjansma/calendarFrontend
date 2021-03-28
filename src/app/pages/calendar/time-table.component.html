@@ -4,7 +4,7 @@
 
 
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
-    <div class="modal-header">
+    <div #modalEventContent class="modal-header">
       <h4 class="modal-title">New Event</h4>
       <button type="button" class="close" aria-label="Close" (click)="close()">
         <span aria-hidden="true">&times;</span>
@@ -38,6 +38,14 @@
       </form>
     </div>
 
+    <!-- <div class="p-2 bd-highlight" *ngIf="loading ; else modalEventContent">
+      <div class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div> -->
+
     <div class="modal-footer">
       <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="addEvent()">
         Add Event
@@ -50,7 +58,7 @@
 
   <div class="row text-center mb-2">
 
-    <div class="col-md-4">
+    <div class="col-md-4 text-rigth">
       <div class="btn-group">
         <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
