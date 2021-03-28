@@ -35,11 +35,11 @@ export class EventService {
       );
   }
 
-  createEvent(title: string, start: Date, end: Date, token: string) {
+  createEvent(user: string, title: string, start: Date, end: Date, token: string) {
     return this.http
       .post(
         API_URL + '/events',
-        { title, start, end, token },
+        { user, title, start, end, token },
         { observe: 'response' }
       )
       .pipe(

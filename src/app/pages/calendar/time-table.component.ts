@@ -160,8 +160,6 @@ export class TimeTableComponent implements OnInit {
 
   fetchEventList() {
     const token = this.tokenService.getToken();
-    const user = this.userService.getUser();
-    // console.log(user)
     const id = this.userService.getUserId();
     this.events = [];
     this.eventService.getUserEvents(id, token).subscribe((res) => {
@@ -183,13 +181,15 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  addEvent(): void {
+   addEvent(): void {
+    const user = this.userService.getUserId();
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
     const token = this.tokenService.getToken();
 
-    this.eventService.createEvent(title, start, end, token).subscribe();
+
+    this.eventService.createEvent (user, title, start, end, token).subscribe();
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
@@ -217,8 +217,8 @@ export class TimeTableComponent implements OnInit {
     this.closeOpenMonthViewDay();
   }
 
-  createEvent(title, start, end, token) {
-    this.eventService.createEvent(title, start, end, token);
+  createEvent(user, title, start, end, token) {
+    this.eventService.createEvent(user, title, start, end, token);
     return;
   }
 
