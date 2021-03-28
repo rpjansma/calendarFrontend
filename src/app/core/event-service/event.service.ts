@@ -22,6 +22,19 @@ export class EventService {
       );
   }
 
+  getUserEvents(id: string, token: string) {
+    return this.http
+      .get<Event[]>(
+        API_URL + '/events/' + id,
+        { observe: 'response' }
+      )
+      .pipe(
+        map((res) => {
+          return res.body;
+        })
+      );
+  }
+
   createEvent(title: string, start: Date, end: Date, token: string) {
     return this.http
       .post(
@@ -37,25 +50,19 @@ export class EventService {
       );
   }
 
-  updateEvent(
-    id: any,
-    title: string,
-    start: Date,
-    end: Date,
-    token: string
-  ) {
+  updateEvent(id: any, title: string, start: Date, end: Date, token: string) {
     return this.http
-    .put(
-      API_URL + '/events/' + id,
-      { title, start, end, token },
-      { observe: 'response' }
-    )
-    .pipe(
+      .put(
+        API_URL + '/events/' + id,
+        { title, start, end, token },
+        { observe: 'response' }
+      )
+      .pipe(
         tap((res) => {
           const body = res.body;
           console.log(body);
         })
-    );
+      );
   }
 
   deleteEvent(id: string) {

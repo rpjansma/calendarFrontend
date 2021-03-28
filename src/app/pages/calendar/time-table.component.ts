@@ -27,6 +27,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
+import { UserService } from '../../core/user-service/user.service';
 
 @Component({
   selector: 'c-calendar',
@@ -35,7 +36,6 @@ import { TokenService } from '../../core/token/token.service';
 })
 export class TimeTableComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-  @ViewChild('modalEvent', { static: true }) modalEvent: TemplateRef<any>;
 
   eventForm: FormGroup;
 
@@ -77,11 +77,14 @@ export class TimeTableComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
+  loading: boolean = false;
+
   constructor(
     private eventService: EventService,
     private modal: NgbModal,
     private formBuilder: FormBuilder,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private userService: UserService
   ) {
     this.eventForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -108,7 +111,7 @@ export class TimeTableComponent implements OnInit {
     }
   }
 
-  eventTimesChanged ({
+  eventTimesChanged({
     event,
     newStart,
     newEnd,
@@ -156,8 +159,12 @@ export class TimeTableComponent implements OnInit {
   }
 
   fetchEventList() {
+    const token = this.tokenService.getToken();
+    const user = this.userService.getUser();
+    // console.log(user)
+    const id = this.userService.getUserId();
     this.events = [];
-    this.eventService.getAllEvents().subscribe((res) => {
+    this.eventService.getUserEvents(id, token).subscribe((res) => {
       for (let i = 0; i < res.length; i++) {
         this.events.push({
           id: res[i]._id,
