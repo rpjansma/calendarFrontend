@@ -20,10 +20,15 @@
     </div>
 
     <div class="form-group">
-      <input formControlName="password" type="password" class="form-control" placeholder="Password">
+      <input formControlName="password" type="password" class="form-control" placeholder="New password" #password>
       <ap-vmessage *ngIf="registerForm.get('password')?.errors?.required && registerForm.controls['password'].touched" text="Password is required"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('password')?.errors?.minlength" text="Minimum length is 6"></ap-vmessage>
       <ap-vmessage *ngIf="registerForm.get('password')?.errors?.maxlength" text="Maximum length is 20"></ap-vmessage>
+    </div>
+
+    <div class="form-group">
+      <input formControlName="passwordRepeat" type="password" class="form-control" placeholder="Confirm your password" pattern="{{ password.value }}">
+      <ap-vmessage *ngIf="registerForm.get('passwordRepeat')?.errors?.pattern  && registerForm.controls['passwordRepeat'].touched" text="The password doesn't match."></ap-vmessage>
     </div>
 
     <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary btn-block my-4">Register</button>

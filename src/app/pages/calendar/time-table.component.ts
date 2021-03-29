@@ -124,6 +124,7 @@ export class TimeTableComponent implements OnInit {
           end: newEnd,
         };
       }
+      console.log(iEvent)
       return iEvent;
     });
     const token = this.tokenService.getToken();
