@@ -27,7 +27,6 @@ export class UserService {
   decodeAndNotify() {
     const token = this.tokenService.getToken();
     const user = decoder(token) as User;
-    console.log(user);
     this.username = user.username;
     this.id = user.id;
     this.userSubject.next(user);
