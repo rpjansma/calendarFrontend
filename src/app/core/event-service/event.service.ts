@@ -26,7 +26,7 @@ export class EventService {
       );
   }
 
-  getUserEvents(id: string, token: string) {
+  getUserEvents(id: string) {
     return this.http
       .get<Event[]>(API_URL + '/events/' + id, { observe: 'response' })
       .pipe(
@@ -45,18 +45,16 @@ export class EventService {
     title: string,
     start: Date,
     end: Date,
-    token: string
   ) {
     return this.http
       .post(
         API_URL + '/events',
-        { user, title, start, end, token },
+        { user, title, start, end },
         { observe: 'response' }
       )
       .pipe(
         tap((res) => {
           const body = res.body;
-          console.log(body);
         }),
         catchError((error) => {
           alert('Sorry, we had an error. Can you try again?');
@@ -65,17 +63,16 @@ export class EventService {
       );
   }
 
-  updateEvent(id: any, title: string, start: Date, end: Date, token: string) {
+  updateEvent(id: any, title: string, start: Date, end: Date) {
     return this.http
       .put(
         API_URL + '/events/' + id,
-        { title, start, end, token },
+        { title, start, end },
         { observe: 'response' }
       )
       .pipe(
         tap((res) => {
           const body = res.body;
-          console.log(body);
         }),
         catchError((error) => {
           alert('Sorry, we had an error. Can you try again?');
@@ -85,11 +82,13 @@ export class EventService {
   }
 
   deleteEvent(id: string) {
-    return this.http.delete(API_URL + '/events/' + id).pipe(
-      catchError((error) => {
-        alert('Sorry, we had an error. Can you try again?');
-        return of(null);
-      })
-    );
+    return this.http
+      .delete(API_URL + '/events/' + id)
+      .pipe(
+        catchError((error) => {
+          alert('Sorry, we had an error. Can you try again?');
+          return of(null);
+        })
+      );
   }
 }
