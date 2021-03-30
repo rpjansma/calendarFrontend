@@ -67,12 +67,6 @@ export class TimeTableComponent implements OnInit {
     event: CalendarEvent;
   };
 
-  modalEventData: {
-    username: string;
-    email: string;
-    password: string;
-  };
-
   refresh: BehaviorSubject<any> = new BehaviorSubject(null);
 
   activeDayIsOpen: boolean = false;
@@ -150,15 +144,15 @@ export class TimeTableComponent implements OnInit {
     return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
   }
 
-  open(content) {
+  open(content): void {
     this.modal.open(content);
   }
 
-  closeOpenMonthViewDay() {
+  closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
   }
 
-  fetchEventList() {
+  fetchEventList(): void {
     const id = this.userService.getUserId();
     this.events = [];
     this.eventService.getUserEvents(id).subscribe((res) => {
@@ -180,7 +174,7 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  addEvent(): void {
+  newEvent(): void {
     const user = this.userService.getUserId();
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
@@ -205,7 +199,7 @@ export class TimeTableComponent implements OnInit {
     this.closeOpenMonthViewDay();
   }
 
-  deleteEvent(eventToDelete: CalendarEvent, id: any = '') {
+  deleteEvent(eventToDelete: CalendarEvent, id: any = ''): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
     id = eventToDelete.id;
     this.eventService.deleteEvent(id).subscribe();
