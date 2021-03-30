@@ -127,9 +127,8 @@ export class TimeTableComponent implements OnInit {
       console.log(iEvent);
       return iEvent;
     });
-    const token = this.tokenService.getToken();
     this.eventService
-      .updateEvent(event.id, event.title, event.start, event.end, token)
+      .updateEvent(event.id, event.title, event.start, event.end)
       .subscribe();
 
     this.closeOpenMonthViewDay();
@@ -160,10 +159,9 @@ export class TimeTableComponent implements OnInit {
   }
 
   fetchEventList() {
-    const token = this.tokenService.getToken();
     const id = this.userService.getUserId();
     this.events = [];
-    this.eventService.getUserEvents(id, token).subscribe((res) => {
+    this.eventService.getUserEvents(id).subscribe((res) => {
       for (let i = 0; i < res.length; i++) {
         this.events.push({
           id: res[i]._id,
@@ -187,9 +185,8 @@ export class TimeTableComponent implements OnInit {
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
-    const token = this.tokenService.getToken();
 
-    this.eventService.createEvent(user, title, start, end, token).subscribe();
+    this.eventService.createEvent(user, title, start, end).subscribe();
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
@@ -200,9 +197,8 @@ export class TimeTableComponent implements OnInit {
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
-    const token = this.tokenService.getToken();
 
-    this.eventService.updateEvent(id, title, start, end, token).subscribe();
+    this.eventService.updateEvent(id, title, start, end).subscribe();
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
@@ -217,13 +213,13 @@ export class TimeTableComponent implements OnInit {
     this.closeOpenMonthViewDay();
   }
 
-  createEvent(user, title, start, end, token) {
-    this.eventService.createEvent(user, title, start, end, token);
+  createEvent(user, title, start, end) {
+    this.eventService.createEvent(user, title, start, end);
     return;
   }
 
-  updateEvent(id, title, start, end, token) {
-    this.eventService.updateEvent(id, title, start, end, token);
+  updateEvent(id, title, start, end) {
+    this.eventService.updateEvent(id, title, start, end);
     return;
   }
 
