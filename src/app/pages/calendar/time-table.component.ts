@@ -77,7 +77,7 @@ export class TimeTableComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
-  loading: boolean = false;
+  public loading: boolean = false;
 
   constructor(
     private eventService: EventService,
@@ -124,7 +124,7 @@ export class TimeTableComponent implements OnInit {
           end: newEnd,
         };
       }
-      console.log(iEvent)
+      console.log(iEvent);
       return iEvent;
     });
     const token = this.tokenService.getToken();
@@ -182,15 +182,14 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-   addEvent(): void {
+  addEvent(): void {
     const user = this.userService.getUserId();
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
     const token = this.tokenService.getToken();
 
-
-    this.eventService.createEvent (user, title, start, end, token).subscribe();
+    this.eventService.createEvent(user, title, start, end, token).subscribe();
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
