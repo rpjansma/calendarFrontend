@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import { Event } from '../../shared/interfaces/event-interface';
@@ -18,24 +18,35 @@ export class EventService {
       .pipe(
         map((res) => {
           return res.body;
+        }),
+        catchError((error) => {
+          alert('Sorry, we had an error. Can you try again?');
+          return of(null);
         })
       );
   }
 
   getUserEvents(id: string, token: string) {
     return this.http
-      .get<Event[]>(
-        API_URL + '/events/' + id,
-        { observe: 'response' }
-      )
+      .get<Event[]>(API_URL + '/events/' + id, { observe: 'response' })
       .pipe(
         map((res) => {
           return res.body;
+        }),
+        catchError((error) => {
+          alert('Sorry, we had an error. Can you try again?');
+          return of(null);
         })
       );
   }
 
-  createEvent(user: string, title: string, start: Date, end: Date, token: string) {
+  createEvent(
+    user: string,
+    title: string,
+    start: Date,
+    end: Date,
+    token: string
+  ) {
     return this.http
       .post(
         API_URL + '/events',
@@ -46,6 +57,10 @@ export class EventService {
         tap((res) => {
           const body = res.body;
           console.log(body);
+        }),
+        catchError((error) => {
+          alert('Sorry, we had an error. Can you try again?');
+          return of(null);
         })
       );
   }
@@ -61,11 +76,20 @@ export class EventService {
         tap((res) => {
           const body = res.body;
           console.log(body);
+        }),
+        catchError((error) => {
+          alert('Sorry, we had an error. Can you try again?');
+          return of(null);
         })
       );
   }
 
   deleteEvent(id: string) {
-    return this.http.delete(API_URL + '/events/' + id);
+    return this.http.delete(API_URL + '/events/' + id).pipe(
+      catchError((error) => {
+        alert('Sorry, we had an error. Can you try again?');
+        return of(null);
+      })
+    );
   }
 }
