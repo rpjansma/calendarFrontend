@@ -1,29 +1,14 @@
 import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
+    CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView
 } from 'angular-calendar';
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
+    addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays
 } from 'date-fns';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
+
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
@@ -109,7 +94,15 @@ export class TimeTableComponent implements OnInit {
     event,
     newStart,
     newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  }: CalendarEventTimesChangedEvent) {
+    this.editedMoving(event, newStart, newEnd)
+    this.eventService
+      .updateEvent(event.id, event.title, event.start, event.end)
+      .subscribe()
+    this.closeOpenMonthViewDay();
+  }
+
+  async editedMoving(event, newStart, newEnd): Promise<any> {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -118,14 +111,8 @@ export class TimeTableComponent implements OnInit {
           end: newEnd,
         };
       }
-      console.log(iEvent);
       return iEvent;
-    });
-    this.eventService
-      .updateEvent(event.id, event.title, event.start, event.end)
-      .subscribe();
-
-    this.closeOpenMonthViewDay();
+    })
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -155,7 +142,7 @@ export class TimeTableComponent implements OnInit {
   fetchEventList(): void {
     const id = this.userService.getUserId();
     this.events = [];
-    this.eventService.getUserEvents(id).subscribe((res) => {
+    this.eventService.getUserEvents(id).subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         this.events.push({
           id: res[i]._id,
@@ -171,8 +158,9 @@ export class TimeTableComponent implements OnInit {
         });
       }
       this.refresh.next(this.events);
-    });
+    })
   }
+
 
   newEvent(): void {
     const user = this.userService.getUserId();
@@ -180,19 +168,21 @@ export class TimeTableComponent implements OnInit {
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
 
-    this.eventService.createEvent(user, title, start, end).subscribe();
+
+    this.eventService.createEvent(user, title, start, end).toPromise();
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
   }
 
-  editEvent(): void {
+  editEvent() {
     const id: any = this.modalContentData.event.id;
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
 
-    this.eventService.updateEvent(id, title, start, end).subscribe();
+    this.eventService.updateEvent(id, title, start, end).toPromise();
+
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
