@@ -5,9 +5,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
+import { environment } from '../../../environments/environment';
 import { Event } from '../../shared/interfaces/event-interface';
 
-const API_URL = 'http://localhost:4000';
+const API_URL = environment.api;
+
 @Injectable({
   providedIn: 'root',
 })
