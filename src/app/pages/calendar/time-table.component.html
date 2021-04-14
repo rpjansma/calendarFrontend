@@ -1,7 +1,4 @@
-<body class="container-fluid mt-5 justify-content pt-0 ">
-
-
-
+<body class="container-fluid mt-5 justify-content pt-0">
 
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
     <div #modalEventContent class="modal-header">
@@ -132,7 +129,7 @@
 
       <div class="form-group">
         <label>Title</label>
-        <input formControlName="title" class="form-control" placeholder="{{ modalContentData?.event.title }}" autofocus>
+        <input formControlName="title" class="form-control" ngModel="{{ modalContentData?.event.title }}" autofocus>
         <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched"
           text="Title is required"></ap-vmessage>
       </div>
