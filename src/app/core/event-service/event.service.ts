@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { environment } from '../../../environments/environment';
 import { Event } from '../../shared/interfaces/event-interface';
 
-const API_URL = 'http://localhost:4000';
+const API_URL = environment.api;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -40,12 +44,7 @@ export class EventService {
       );
   }
 
-  createEvent(
-    user: string,
-    title: string,
-    start: Date,
-    end: Date,
-  ) {
+  createEvent(user: string, title: string, start: Date, end: Date) {
     return this.http
       .post(
         API_URL + '/events',
@@ -82,13 +81,11 @@ export class EventService {
   }
 
   deleteEvent(id: string) {
-    return this.http
-      .delete(API_URL + '/events/' + id)
-      .pipe(
-        catchError((error) => {
-          alert('Sorry, we had an error. Can you try again?');
-          return of(null);
-        })
-      );
+    return this.http.delete(API_URL + '/events/' + id).pipe(
+      catchError((error) => {
+        alert('Sorry, we had an error. Can you try again?');
+        return of(null);
+      })
+    );
   }
 }
