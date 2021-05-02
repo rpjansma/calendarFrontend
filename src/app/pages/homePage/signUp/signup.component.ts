@@ -1,12 +1,14 @@
-import { PlatformDetector } from './../../../core/plataform-detector/plataform-detector.service';
-import { AuthService } from './../../../core/auth/auth.service';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from './../../../core/user-service/user.service';
+
+import { AuthService } from '../../../core/auth/auth.service';
+import { PlatformDetector } from '../../../core/plataform-detector/plataform-detector.service';
+import { UserService } from '../../../core/user-service/user.service';
 
 @Component({
   templateUrl: './signup.component.html',
+  styleUrls: ['../home.component.css']
 })
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
