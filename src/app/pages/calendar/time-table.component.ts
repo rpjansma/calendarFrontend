@@ -1,29 +1,14 @@
 import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
+    CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView
 } from 'angular-calendar';
 import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
+    addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays
 } from 'date-fns';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
+
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventService } from '../../core/event-service/event.service';
 import { TokenService } from '../../core/token/token.service';
@@ -67,17 +52,11 @@ export class TimeTableComponent implements OnInit {
     event: CalendarEvent;
   };
 
-  modalEventData: {
-    username: string;
-    email: string;
-    password: string;
-  };
-
   refresh: BehaviorSubject<any> = new BehaviorSubject(null);
 
   activeDayIsOpen: boolean = false;
 
-  loading: boolean = false;
+  public loading: boolean = false;
 
   constructor(
     private eventService: EventService,
@@ -115,7 +94,15 @@ export class TimeTableComponent implements OnInit {
     event,
     newStart,
     newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  }: CalendarEventTimesChangedEvent) {
+    this.editedMoving(event, newStart, newEnd)
+    this.eventService
+      .updateEvent(event.id, event.title, event.start, event.end)
+      .subscribe()
+    this.closeOpenMonthViewDay();
+  }
+
+  async editedMoving(event, newStart, newEnd): Promise<any> {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -125,13 +112,7 @@ export class TimeTableComponent implements OnInit {
         };
       }
       return iEvent;
-    });
-    const token = this.tokenService.getToken();
-    this.eventService
-      .updateEvent(event.id, event.title, event.start, event.end, token)
-      .subscribe();
-
-    this.closeOpenMonthViewDay();
+    })
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -150,19 +131,18 @@ export class TimeTableComponent implements OnInit {
     return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
   }
 
-  open(content) {
+  open(content): void {
     this.modal.open(content);
   }
 
-  closeOpenMonthViewDay() {
+  closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
   }
 
-  fetchEventList() {
-    const token = this.tokenService.getToken();
+  fetchEventList(): void {
     const id = this.userService.getUserId();
     this.events = [];
-    this.eventService.getUserEvents(id, token).subscribe((res) => {
+    this.eventService.getUserEvents(id).subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         this.events.push({
           id: res[i]._id,
@@ -178,38 +158,38 @@ export class TimeTableComponent implements OnInit {
         });
       }
       this.refresh.next(this.events);
-    });
+    })
   }
 
-   addEvent(): void {
+
+  newEvent(): void {
     const user = this.userService.getUserId();
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
-    const token = this.tokenService.getToken();
 
 
-    this.eventService.createEvent (user, title, start, end, token).subscribe();
+    this.eventService.createEvent(user, title, start, end).toPromise();
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
   }
 
-  editEvent(): void {
+  editEvent() {
     const id: any = this.modalContentData.event.id;
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
-    const token = this.tokenService.getToken();
 
-    this.eventService.updateEvent(id, title, start, end, token).subscribe();
+    this.eventService.updateEvent(id, title, start, end).toPromise();
+
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
     this.closeOpenMonthViewDay();
   }
 
-  deleteEvent(eventToDelete: CalendarEvent, id: any = '') {
+  deleteEvent(eventToDelete: CalendarEvent, id: any = ''): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
     id = eventToDelete.id;
     this.eventService.deleteEvent(id).subscribe();
@@ -217,13 +197,13 @@ export class TimeTableComponent implements OnInit {
     this.closeOpenMonthViewDay();
   }
 
-  createEvent(user, title, start, end, token) {
-    this.eventService.createEvent(user, title, start, end, token);
+  createEvent(user, title, start, end) {
+    this.eventService.createEvent(user, title, start, end);
     return;
   }
 
-  updateEvent(id, title, start, end, token) {
-    this.eventService.updateEvent(id, title, start, end, token);
+  updateEvent(id, title, start, end) {
+    this.eventService.updateEvent(id, title, start, end);
     return;
   }
 

@@ -1,7 +1,4 @@
-<body class="container-fluid mt-5 justify-content pt-0 ">
-
-
-
+<body class="container-fluid mt-5 justify-content pt-0">
 
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
     <div #modalEventContent class="modal-header">
@@ -12,7 +9,7 @@
     </div>
 
     <div class="modal-body">
-      <form [formGroup]="eventForm" class="form">
+      <form [formGroup]="eventForm" class="form" *ngIf="!loading">
 
         <div class="form-group">
           <label>Title</label>
@@ -34,20 +31,17 @@
           <ap-vmessage *ngIf="eventForm.get('end')?.errors?.required && eventForm.controls['end'].touched"
             text="End date is required"></ap-vmessage>
         </div>
-
       </form>
-    </div>
 
-    <!-- <div class="p-2 bd-highlight" *ngIf="loading ; else modalEventContent">
-      <div class="text-center">
+      <div class="d-flex justify-content-center" *ngIf="loading">
         <div class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="modal-footer">
-      <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="addEvent()">
+      <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="newEvent()">
         Add Event
       </button>
       <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
@@ -135,7 +129,7 @@
 
       <div class="form-group">
         <label>Title</label>
-        <input formControlName="title" class="form-control" placeholder="{{ modalContentData?.event.title }}" autofocus>
+        <input formControlName="title" class="form-control" ngModel="{{ modalContentData?.event.title }}" autofocus>
         <ap-vmessage *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched"
           text="Title is required"></ap-vmessage>
       </div>
