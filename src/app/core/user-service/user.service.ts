@@ -60,8 +60,7 @@ export class UserService {
   getAllUsers() {
     return this.http.get(API_URL + '/users').pipe(
       tap((res) => {
-        const events = res;
-        console.log(events);
+        console.log(res);
       }),
       catchError((error) => {
         alert('Sorry, we had an error. Can you try again?');

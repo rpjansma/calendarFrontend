@@ -1,13 +1,14 @@
-import { TimeTableComponent } from './pages/calendar/time-table.component';
-import { SignInComponent } from './pages/homePage/signIn/signin.component';
-import { SignUpComponent } from './pages/homePage/signUp/signup.component';
-import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
-import { AuthGuard } from './core/auth/auth.guard';
-import { CalendarGuard } from './core/auth/calendar.guard';
-import { HomeComponent } from './pages/homePage/home.component';
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AuthGuard } from './core/auth/auth.guard';
+import { CalendarGuard } from './core/auth/calendar.guard';
+import { TimeTableComponent } from './pages/calendar/time-table.component';
+import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
+import { HomeComponent } from './pages/homePage/home.component';
+import { SignInComponent } from './pages/homePage/signIn/signin.component';
+import { SignUpComponent } from './pages/homePage/signUp/signup.component';
+import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
     path: 'calendar',
     canActivate: [CalendarGuard],
     component: TimeTableComponent,
+  },
+
+  {
+    path: 'portfolio',
+    component: PortfolioComponent,
   },
 
   {
