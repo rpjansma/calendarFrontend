@@ -1,12 +1,15 @@
-import { PlatformDetector } from './../../../core/plataform-detector/plataform-detector.service';
-import { AuthService } from './../../../core/auth/auth.service';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import $ from 'jquery';
+
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import $ from "jquery"
+
+import { AuthService } from '../../../core/auth/auth.service';
+import { PlatformDetector } from '../../../core/plataform-detector/plataform-detector.service';
 
 @Component({
   templateUrl: './signin.component.html',
+  styleUrls: ['../home.component.css']
 })
 export class SignInComponent implements OnInit {
   loginForm: FormGroup;
