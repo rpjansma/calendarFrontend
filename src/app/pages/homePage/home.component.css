@@ -9,8 +9,8 @@ input::placeholder {
 
 button {
   font-size: 0.95rem;
-  background-color: rgb(255, 255, 255);
-  color: #0073b1;
+  background-color: #0073b1;
+  color: #fafafa;
   font-weight: bold;
   border: 2px solid;
   border-radius: 20px;

@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { UserService } from '../user-service/user.service';
 import { Observable } from 'rxjs';
-import { User } from '../../shared/interfaces/user-interface';
+
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { User } from '../../shared/interfaces/user-interface';
+import { UserService } from '../user-service/user.service';
 
 @Component({
   selector: 'c-header',
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
   user$: Observable<User>;
