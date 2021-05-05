@@ -1,13 +1,32 @@
-<header class="fixed-top">
-  <nav class="navbar navbar-ligth" style="background-color: #eeeeee;">
+  <nav class="navbar navbar-expand-lg navbar-ligth" style="background-color: #eeeeee">
     <div class="container-fluid">
-
-      <span class="navbar-brand">
+      <div class="navbar-brand">
         <i class="fa fa-calendar" aria-hidden="true"></i>
-        Calendariozinho
-      </span>
+        <span> Calendariozinho </span>
+      </div>
 
-      <div class="p-2 bd-highlight" *ngIf="(user$ | async) as user; else login">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Portfolio</a>
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #login>
+        <span class="signIn" [routerLink]="['']" aria-hidden="true"
+          >Sign in
+          <a class="fa fa-sign-in"></a>
+        </span>
+      </ng-template>
+
+      <div #logged class="p-2 bd-highlight" *ngIf="user$ | async as user; else login">
         <i class="fa fa-user-circle mr-1"></i>
         <span class="mr-2">{{ user.username }}, be welcome!</span>
         <div class="text-right">
@@ -15,13 +34,5 @@
           <a class="fa fa-sign-out" (click)="logout()"></a>
         </div>
       </div>
-
-      <ng-template #login>
-        <span class="" [routerLink]="['']" aria-hidden="true">Sign in
-          <a class="fa fa-sign-in"></a>
-        </span>
-      </ng-template>
-
     </div>
   </nav>
-</header>
