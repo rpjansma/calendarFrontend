@@ -164,13 +164,13 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  async newEvent() {
+  newEvent() {
     const user = this.userService.getUserId();
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
 
-    await this.createEvent(user, title, start, end);
+    this.createEvent(user, title, start, end);
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();

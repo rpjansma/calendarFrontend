@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { CommonModule } from '@angular/common';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VMessageModule } from '../../shared/vmessage/vmessage.module';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { TimeTableComponent } from './time-table.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { EventService } from '../../core/event-service/event.service';
+import { SharedModule } from '../../shared/shared.module';
+import { TimeTableComponent } from './time-table.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { EventService } from '../../core/event-service/event.service';
     CommonModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    VMessageModule,
+    SharedModule,
   ],
   exports: [],
   declarations: [TimeTableComponent],
