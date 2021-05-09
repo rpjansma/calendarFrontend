@@ -1,0 +1,25 @@
+span {}
+
+li > a{
+  color: #6c757d
+}
+
+a:hover{
+  color: #808080;
+  background-color: rgb(60, 60, 60, .1);
+  border-radius: 100px;
+  transition: 0.19s ease-in;
+}
+
+@media (max-width: 390px) {
+
+  i ~ span {
+    display: none;
+  }
+
+  i{
+    font-size: 32px
+  }
+
+
+}
