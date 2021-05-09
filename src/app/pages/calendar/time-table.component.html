@@ -1,4 +1,4 @@
-<body class="container-fluid mt-5 justify-content pt-0">
+<body class="container-fluid mt-3 justify-content pt-0">
 
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
     <div #modalEventContent class="modal-header">
@@ -52,39 +52,39 @@
 
   <div class="row text-center mb-2">
 
-    <div class="col-md-4 text-rigth">
+    <div class="col-sm-6 col-md-4 text-rigth">
       <div class="btn-group">
-        <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        <button class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
           Previous
-        </div>
-        <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+        </button>
+        <button class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
           Today
-        </div>
-        <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        </button>
+        <button class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
           Next
-        </div>
+        </button>
       </div>
     </div>
 
 
 
-    <div class="col-md-4">
+    <div class="col-sm-6 col-md-4" #Control>
       <div class="btn-group">
-        <div class="btn btn-primary" (click)="setView(calendarView.Month)" [class.active]="view === calendarView.Month">
+        <button class="btn btn-primary" (click)="setView(calendarView.Month)" [class.active]="view === calendarView.Month">
           Month
-        </div>
-        <div class="btn btn-primary" (click)="setView(calendarView.Week)" [class.active]="view === calendarView.Week">
+        </button>
+        <button class="btn btn-primary" (click)="setView(calendarView.Week)" [class.active]="view === calendarView.Week">
           Week
-        </div>
-        <div class="btn btn-primary" (click)="setView(calendarView.Day)" [class.active]="view === calendarView.Day">
+        </button>
+        <button class="btn btn-primary" (click)="setView(calendarView.Day)" [class.active]="view === calendarView.Day">
           Day
-        </div>
+        </button>
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-sm-12 col-md-4">
       <button class="btn btn-primary " (click)="open(modalEvent)">
         +Event
       </button>
@@ -143,7 +143,7 @@
 
       <div class="form-group">
         <label>End date</label>
-        <input formControlName="end" type="datetime-local" class="form-control">
+        <input formControlName="end" data-provide="datepicker" class="form-control">
         <ap-vmessage *ngIf="eventForm.get('end')?.errors?.required && eventForm.controls['end'].touched"
           text="End date is required"></ap-vmessage>
       </div>

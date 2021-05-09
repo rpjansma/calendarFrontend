@@ -9,7 +9,7 @@ import { UserService } from '../user-service/user.service';
 @Component({
   selector: 'c-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   user$: Observable<User>;

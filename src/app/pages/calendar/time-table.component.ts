@@ -6,7 +6,9 @@ import {
 } from 'date-fns';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy, Component, EventEmitter, OnInit, TemplateRef, ViewChild
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,6 +20,7 @@ import { UserService } from '../../core/user-service/user.service';
   selector: 'c-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './time-table.component.html',
+  styleUrls: ['./time-table.component.scss'],
 })
 export class TimeTableComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -56,6 +59,8 @@ export class TimeTableComponent implements OnInit {
 
   activeDayIsOpen: boolean = false;
 
+  eventEmissor = new EventEmitter();
+
   public loading: boolean = false;
 
   constructor(
@@ -74,6 +79,14 @@ export class TimeTableComponent implements OnInit {
 
   setView(view: CalendarView) {
     this.view = view;
+  }
+
+  closeOpenMonthViewDay(): void {
+    this.activeDayIsOpen = false;
+  }
+
+  open(content): void {
+    this.modal.open(content);
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -95,14 +108,12 @@ export class TimeTableComponent implements OnInit {
     newStart,
     newEnd,
   }: CalendarEventTimesChangedEvent) {
-    this.editedMoving(event, newStart, newEnd)
-    this.eventService
-      .updateEvent(event.id, event.title, event.start, event.end)
-      .subscribe()
+    this.editMoving(event, newStart, newEnd);
+
     this.closeOpenMonthViewDay();
   }
 
-  async editedMoving(event, newStart, newEnd): Promise<any> {
+  editMoving(event, newStart, newEnd) {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -112,7 +123,7 @@ export class TimeTableComponent implements OnInit {
         };
       }
       return iEvent;
-    })
+    });
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -131,18 +142,10 @@ export class TimeTableComponent implements OnInit {
     return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
   }
 
-  open(content): void {
-    this.modal.open(content);
-  }
-
-  closeOpenMonthViewDay(): void {
-    this.activeDayIsOpen = false;
-  }
-
   fetchEventList(): void {
     const id = this.userService.getUserId();
     this.events = [];
-    this.eventService.getUserEvents(id).subscribe(res => {
+    this.eventService.getUserEvents(id).subscribe((res) => {
       for (let i = 0; i < res.length; i++) {
         this.events.push({
           id: res[i]._id,
@@ -158,18 +161,16 @@ export class TimeTableComponent implements OnInit {
         });
       }
       this.refresh.next(this.events);
-    })
+    });
   }
 
-
-  newEvent(): void {
+  async newEvent() {
     const user = this.userService.getUserId();
     const title = this.eventForm.get('title')?.value;
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
 
-
-    this.eventService.createEvent(user, title, start, end).toPromise();
+    await this.createEvent(user, title, start, end);
     this.eventForm.reset();
     this.fetchEventList();
     this.modal.dismissAll();
@@ -181,7 +182,7 @@ export class TimeTableComponent implements OnInit {
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
 
-    this.eventService.updateEvent(id, title, start, end).toPromise();
+    this.updateEvent(id, title, start, end)
 
     this.eventForm.reset();
     this.fetchEventList();
@@ -198,12 +199,12 @@ export class TimeTableComponent implements OnInit {
   }
 
   createEvent(user, title, start, end) {
-    this.eventService.createEvent(user, title, start, end);
+    this.eventService.createEvent(user, title, start, end).subscribe();
     return;
   }
 
   updateEvent(id, title, start, end) {
-    this.eventService.updateEvent(id, title, start, end);
+    this.eventService.updateEvent(id, title, start, end).subscribe();
     return;
   }
 
