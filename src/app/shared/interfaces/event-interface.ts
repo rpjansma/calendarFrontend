@@ -5,3 +5,8 @@ export interface Event {
   start: Date;
   end?: Date;
 }
+export interface Events extends Array<Event> {}
+
+export interface EventsAPI {
+  payload: Event;
+}

@@ -1,0 +1,11 @@
+<input type="text" [formControl]="searchInput"/>
+
+<div class="td-page-wrapper" *ngIf="event$ | async as events; else dataEmpty">
+  <div class="" *ngFor="let event of events">
+    <app-card-cursos [event]="event"></app-card-cursos>
+  </div>
+</div>
+
+<ng-template #dataEmpty>
+  <p>No data</p>
+</ng-template>
