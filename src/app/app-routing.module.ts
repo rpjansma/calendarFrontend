@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './core/auth/auth.guard';
 import { CalendarGuard } from './core/auth/calendar.guard';
+import { HubGuard } from './core/auth/hub.guard';
 import { TimeTableComponent } from './pages/calendar/time-table.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { EventHubComponent } from './pages/event-hub/event-hub.component';
@@ -41,6 +42,7 @@ const routes: Routes = [
 
   {
     path: 'hub',
+    canActivate: [CalendarGuard],
     component: EventHubComponent,
   },
 

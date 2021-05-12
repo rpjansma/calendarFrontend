@@ -16,7 +16,7 @@
           <a
             class="nav-link"
             aria-current="page"
-            href="#"
+            [routerLink]="['']"
             [class.active]="aba == 'home'"
             (click)="aba = 'home'"
             >Home</a
@@ -39,7 +39,6 @@
             (click)="aba = 'about'"
             >About</a
           >
-
         </li>
       </ul>
     </div>
@@ -49,7 +48,6 @@
         >Sign in
 
         <a class="fa fa-sign-in fa-lg"></a>
-
       </span>
     </ng-template>
 
@@ -58,14 +56,12 @@
       class="p-2 bd-highlight"
       *ngIf="user$ | async as user; else login"
     >
-
       <a class="fa fa-user-circle mr-1"></a>
       <span class="mr-2">{{ user.username }}, be welcome!</span>
       <div class="text-right">
         <span id="logout" class="mr-1 font-italic"
           >Logout <a class="fa fa-sign-out fa-lg" (click)="logout()"></a
         ></span>
-
       </div>
     </div>
   </div>
