@@ -23,6 +23,21 @@
 
         <div class="form-group">
           <label>Start date</label>
+
+          <!-- <div class="row">
+            <div class="col-xs-12 col-md-5 col-lg-4 form-group">
+              <input
+                class="form-control"
+                #datepickerFull="bsDatepicker"
+                bsDatepicker
+                formControlName="dateFull"
+                [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY, hh:mm:ss a' }">
+            </div>
+            <div class="col-xs-12 col-12 col-md-3 form-group">
+              <button class="btn btn-success" (click)="datepickerFull.toggle()" [attr.aria-expanded]="datepickerFull.isOpen" type="button">Date Picker</button>
+            </div>
+          </div> -->
+
           <input
             formControlName="start"
             type="datetime-local"

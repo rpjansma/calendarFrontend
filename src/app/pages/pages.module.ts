@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { EventHubComponent } from './event-hub/event-hub.component';
 import { HomeComponent } from './homePage/home.component';
 import { SignInComponent } from './homePage/signIn/signin.component';
 import { SignUpComponent } from './homePage/signUp/signup.component';
@@ -19,6 +20,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
     HomeComponent,
     NotFoundComponent,
     PortfolioComponent,
+    EventHubComponent,
   ],
   providers: [],
 })
