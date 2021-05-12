@@ -6,9 +6,11 @@ import { FormControl } from '@angular/forms';
 
 import { EventService } from '../../core/event-service/event.service';
 
+
 @Component({
   selector: 'app-event-hub',
   templateUrl: './event-hub.component.html',
+
   styleUrls: ['./event-hub.component.scss'],
 })
 export class EventHubComponent implements OnInit {
@@ -27,4 +29,3 @@ export class EventHubComponent implements OnInit {
   ngOnInit(): void {
 
   }
-}

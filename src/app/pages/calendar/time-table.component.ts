@@ -183,7 +183,7 @@ export class TimeTableComponent implements OnInit {
     const start = this.eventForm.get('start')?.value;
     const end = this.eventForm.get('end')?.value;
 
-    this.updateEvent(id, title, start, end)
+    this.updateEvent(id, title, start, end);
 
     this.eventForm.reset();
     this.fetchEventList();
