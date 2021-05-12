@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import {
     ChangeDetectionStrategy, Component, EventEmitter, OnInit, TemplateRef, ViewChild
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventService } from '../../core/event-service/event.service';
@@ -75,6 +75,7 @@ export class TimeTableComponent implements OnInit {
       start: ['', Validators.required],
       end: ['', Validators.required],
     });
+
   }
 
   setView(view: CalendarView) {
