@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { EventService } from '../../core/event-service/event.service';
-
+import { UserService } from '../../core/user-service/user.service';
 
 @Component({
   selector: 'app-event-hub',
@@ -15,17 +15,19 @@ import { EventService } from '../../core/event-service/event.service';
 })
 export class EventHubComponent implements OnInit {
   searchInput = new FormControl();
+  id = this.userService.getUserId();
 
-  eventos$ = this.eventService.getAllEvents();
+  event$ = this.eventService.getUserEvents(this.id);
   filtro$ = this.searchInput.valueChanges.pipe(
     switchMap((qualquerNome) => this.eventService.getAllEvents())
   );
 
-  //event$: Observable<any> = merge(this.eventos$, this.filtro$)
+  //eventos$: Observable<any> = merge(this.event$, this.filtro$)
 
+  constructor(
+    private eventService: EventService,
+    private userService: UserService
+  ) {}
 
-  constructor(private eventService: EventService) {}
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
+}

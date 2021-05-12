@@ -9,7 +9,6 @@ export class CardCursosComponent implements OnInit {
 
   @Input() event: any;
 
-
   constructor() { }
 
   ngOnInit(): void {
