@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:4000'
+  api: 'https://rest-calendar-api.herokuapp.com'
 };
 
 /*

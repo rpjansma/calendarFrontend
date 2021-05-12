@@ -1,4 +1,4 @@
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -16,18 +16,11 @@ export class AuthService {
   constructor(private http: HttpClient, private userService: UserService) {}
 
   authenticate(username: string, password: string) {
-    return this.http
-      .post(
-        API_URL + '/users/authenticate',
-        { username, password },
-        { observe: 'response' }
-      )
-      .pipe(
-        tap((res) => {
-          const authToken = res.headers.get('x-access-token');
-          this.userService.setToken(authToken);
-        })
-      );
+    return this.http.post(
+      API_URL + '/users/authenticate',
+      { username, password },
+      { observe: 'response' }
+    );
   }
 
   refreshToken() {}

@@ -6,10 +6,11 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { PlatformDetector } from '../../../core/plataform-detector/plataform-detector.service';
+import { UserService } from '../../../core/user-service/user.service';
 
 @Component({
   templateUrl: './signin.component.html',
-  styleUrls: ['../home.component.css']
+  styleUrls: ['../home.component.css'],
 })
 export class SignInComponent implements OnInit {
   loginForm: FormGroup;
@@ -18,6 +19,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private platformDetectorService: PlatformDetector
   ) {
@@ -27,15 +29,19 @@ export class SignInComponent implements OnInit {
     });
   }
 
-
-  ngOnInit(): void {};
+  ngOnInit(): void {}
 
   login() {
     const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
 
     this.authService.authenticate(username, password).subscribe(
-      () => this.router.navigate(['calendar']),
+      (data) => {
+        console.log(data);
+        const authToken = data.headers.get('x-access-token');
+        this.userService.setToken(authToken);
+        this.router.navigate(['calendar']);
+      },
       (error) => {
         console.log(error);
         this.loginForm.reset();
