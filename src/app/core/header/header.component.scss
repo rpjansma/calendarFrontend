@@ -1,29 +1,24 @@
 span {
-
+  color: #dce6f1;
+  a {
+    color: #0070e7;
+  }
+}
+i {
+  color: #c0d1e2;
 }
 
-
-
-li > a{
-  color: #6c757d
+a:hover {
+  background-color: rgba(202, 202, 202, 0.212);
+  border-radius: 1.1rem;
+  transition: 0.22s ease-in;
 }
-
-a:hover{
-  color: #808080;
-  background-color: rgb(60, 60, 60, .1);
-  border-radius: 100px;
-  transition: 0.19s ease-in;
-}
-
 @media (max-width: 390px) {
-
   i ~ span {
     display: none;
   }
 
-  i{
-    font-size: 32px
+  i {
+    font-size: 30px;
   }
-
-
 }

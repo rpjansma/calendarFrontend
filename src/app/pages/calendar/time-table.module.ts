@@ -1,5 +1,6 @@
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ import { TimeTableComponent } from './time-table.component';
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    BsDatepickerModule.forRoot(),
     CommonModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
