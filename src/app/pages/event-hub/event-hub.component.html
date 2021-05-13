@@ -1,16 +1,20 @@
 <div class="container mt-2">
-  <div class="float-right mt-1">
+  <div class="d-flex justify-content-end align-items-center mt-2 mb-2">
+    <i class=" fa fa-search fa-lg mr-2"></i>
     <input type="text" [formControl]="searchInput" />
-    <i class="fa fa-search ml-2"></i>
   </div>
 
-  <div class="td-page-wrapper" *ngIf="event$ | async as events; else dataEmpty">
-    <div class="d-inline-flex col-sm-4" *ngFor="let event of events">
-      <app-card-cursos [event]="event"></app-card-cursos>
+  <div class="d-flex flex-wrap align-items-baseline" *ngIf="event$ | async as events; else dataEmpty">
+    <div class="d-inline-flex col-lg-3 col-md-4 col-6" *ngFor="let event of events">
+      <app-card-cursos class="" [event]="event"></app-card-cursos>
     </div>
   </div>
 
   <ng-template #dataEmpty>
-    <i>No data</i>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
   </ng-template>
 </div>
