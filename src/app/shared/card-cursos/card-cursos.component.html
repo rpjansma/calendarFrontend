@@ -1,9 +1,23 @@
-<div class="card d-inline-flex mb-1" style="width: 18rem">
-  <div class="card-body">
+<div class="card d-flex align-self-center mb-2">
+  <div
+    highlightMouse
+    [color1]="'#DBD8E3'"
+    [color2]="'#C0BEC7'"
+    class="card-body"
+  >
     <h5 class="card-title">{{ event.title }}</h5>
     <label class="text-info">Start date</label>
     <p class="card-text">{{ event.start }}</p>
     <label class="text-info">End date</label>
     <p class="card-text">{{ event.end }}</p>
+  </div>
+  <div
+    highlightMouse
+    [color1]="'#DBD8E3'"
+    [color2]="'#C0BEC7'"
+    class="card-footer d-flex justify-content-around"
+  >
+    <a class="ml-1 fa fa-edit fa-lg"></a>
+    <a class="ml-2 fa fa-trash fa-lg"></a>
   </div>
 </div>
