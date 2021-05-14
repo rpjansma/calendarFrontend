@@ -1,24 +1,43 @@
 span {
   color: #dce6f1;
   a {
-    color: #0070e7;
+    color: #6c49a8;
   }
 }
+
 i {
   color: #c0d1e2;
 }
 
+a {
+  color: #6c49a8;
+}
+
 a:hover {
-  background-color: rgba(202, 202, 202, 0.212);
-  border-radius: 1.1rem;
+  text-decoration: none;
+  color: #c0bec7;
+  transition: 0.2s ease-in;
+}
+
+li a:hover {
+  background-color: #dbd8e323;
+  border-radius: 1.4rem;
   transition: 0.22s ease-in;
 }
-@media (max-width: 390px) {
-  i ~ span {
+@media (max-width: 430px) {
+  .hide {
     display: none;
   }
 
-  i {
-    font-size: 30px;
+  a span {
+    display: none;
   }
+
+  li {
+    a {
+      font-size: 14px
+    }
+  }
+
+
 }
