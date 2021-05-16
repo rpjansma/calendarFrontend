@@ -3,13 +3,19 @@
     highlightMouse
     [color1]="'#DBD8E3'"
     [color2]="'#C0BEC7'"
-    class="card-body"
+    class="card-body d-flex flex-column justify-content-around"
   >
-    <h5 class="card-title">{{ event.title }}</h5>
-    <label class="text-info">Start date</label>
-    <p class="card-text">{{ event.start }}</p>
-    <label class="text-info">End date</label>
-    <p class="card-text">{{ event.end }}</p>
+    <div class="align-items-center" style="min-height: 60px;">
+      <h5 class="card-title ">{{ event.title | uppercase }}</h5>
+    </div>
+    <div>
+      <label>Start date</label>
+      <p class="card-text">{{ event.start | date }}</p>
+    </div>
+    <div>
+      <label>End date</label>
+      <p class="card-text">{{ event.end | date }}</p>
+    </div>
   </div>
   <div
     highlightMouse
