@@ -1,9 +1,25 @@
 .card-body{
   background-color: #cbcad3f6;
-  height: 320px;
+  width: 230px;
   transition: .2s ease-in-out;
 }
 .card-footer{
   background-color: #cbcad3dc;
   transition: .2s ease-in-out;
+}
+
+label {
+  background-color: #9776bddc;
+  border-radius: 5px;
+  width: 80px;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (max-width:500px) {
+  .card-body{
+    background-color: #cbcad3f6;
+    width: 180px;
+    transition: .2s ease-in-out;
+  }
 }

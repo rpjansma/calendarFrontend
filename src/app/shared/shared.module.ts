@@ -8,8 +8,9 @@ import { VMessageComponent } from './vmessage/vmessage.component';
 import { HighlightMouseDirective } from './directives/highlight-mouse.directive';
 
 @NgModule({
-  imports: [],
+  imports: [CommonModule],
   declarations: [
+    
     VMessageComponent,
     ModalErrorComponent,
     CardCursosComponent,
