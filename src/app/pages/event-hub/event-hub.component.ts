@@ -1,8 +1,6 @@
-import { Observable } from 'rxjs';
-import { map, merge, switchMap, tap } from 'rxjs/operators';
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
 
 import { EventService } from '../../core/event-service/event.service';
 import { UserService } from '../../core/user-service/user.service';
@@ -19,7 +17,7 @@ export class EventHubComponent implements OnInit {
 
   event$ = this.eventService.getUserEvents(this.id);
   filtro$ = this.searchInput.valueChanges.pipe(
-    switchMap((qualquerNome) => this.eventService.getAllEvents())
+    switchMap(() => this.eventService.getAllEvents())
   );
 
   //eventos$: Observable<any> = merge(this.event$, this.filtro$)
