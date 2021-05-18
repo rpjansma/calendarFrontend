@@ -8,7 +8,7 @@ import { UserService } from '../../../core/user-service/user.service';
 
 @Component({
   templateUrl: './signup.component.html',
-  styleUrls: ['../home.component.css']
+  styleUrls: ['../home.component.scss']
 })
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;

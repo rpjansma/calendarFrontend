@@ -10,7 +10,7 @@ import { UserService } from '../../../core/user-service/user.service';
 
 @Component({
   templateUrl: './signin.component.html',
-  styleUrls: ['../home.component.css'],
+  styleUrls: ['../home.component.scss'],
 })
 export class SignInComponent implements OnInit {
   loginForm: FormGroup;
