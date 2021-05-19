@@ -24,9 +24,14 @@ li a:hover {
   border-radius: 1.4rem;
   transition: 0.22s ease-in;
 }
-@media (max-width: 430px) {
+
+@media (max-width: 500px) {
   .hide {
     display: none;
+  }
+
+  .navbar-brand{
+    font-size: 30px;
   }
 
   a span {

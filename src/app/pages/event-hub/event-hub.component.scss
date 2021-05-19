@@ -1,13 +1,28 @@
 img {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  filter:grayscale(70%);
 }
 div {
   transition: 0.2s ease;
 }
 
 @media (max-width: 700px) {
+
+  h1 {
+    font-size: 35px;
+  }
+  input {
+    width: 236px
+  }
+}
+
+@media (max-width: 485px) {
+
   h1 {
     font-size: 30px;
+  }
+  input {
+    width: 156px
   }
 }
