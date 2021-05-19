@@ -1,4 +1,30 @@
 .about {
-  background-color: rgb(60, 60, 60, 0.3);
 }
 
+.sideBar {
+  background-color: #6710f244;
+  color: #FFFFFF;
+}
+
+a {
+  color: purple;
+  text-decoration: none;
+}
+
+img {
+  border-radius: 100px;
+  transition: .8s ease;
+  filter:grayscale(65%)
+}
+
+img:hover {
+  transition: 1s ease;
+  opacity: .9;
+  filter:grayscale(15%)
+
+}
+
+.main{
+  background-color: #5923af9a;
+  color: #FFFFFF
+}

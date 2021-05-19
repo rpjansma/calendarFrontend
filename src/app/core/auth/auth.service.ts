@@ -1,4 +1,4 @@
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,7 +13,11 @@ const API_URL = environment.api;
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+    private tokenService: TokenService
+  ) {}
 
   authenticate(username: string, password: string) {
     return this.http.post(
@@ -23,5 +27,18 @@ export class AuthService {
     );
   }
 
-  refreshToken() {}
+  refreshToken() {
+    let token = this.tokenService.getToken();
+    return this.http
+      .post(
+        API_URL + '/users/refresh-token',
+        { token },
+        { observe: 'response' }
+      )
+      .pipe(
+        map((data) => {
+          return data
+        })
+      );
+  }
 }

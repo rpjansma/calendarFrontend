@@ -9,13 +9,11 @@ export class TokenService {
   }
 
   setToken(token) {
-    if (token != null) {
-      window.localStorage.setItem(KEY, token);
-    } else {
-      alert(
-        "The token was null, this way we can't authenticate your credential."
-      );
-    }
+    token != null
+      ? window.localStorage.setItem(KEY, token)
+      : alert(
+          "The token was null, this way we can't authenticate your credential."
+        );
   }
 
   getToken() {

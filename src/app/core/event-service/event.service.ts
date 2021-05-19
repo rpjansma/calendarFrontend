@@ -1,8 +1,7 @@
-import { CalendarEvent } from 'angular-calendar';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
