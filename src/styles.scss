@@ -1,7 +1,9 @@
 
 @import "~bootstrap/scss/functions";
 
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import"variables.scss";
+
+@import "~bootstrap/scss/bootstrap";
 @import "~angular-calendar/css/angular-calendar.css";
 @import "~font-awesome/css/font-awesome.min";
 
