@@ -23,7 +23,7 @@ export class UserService {
     this.tokenService.hasToken() && this.decodeAndNotify();
   }
 
-  setToken(token) {
+  setToken(token: string) {
     this.tokenService.setToken(token);
     this.decodeAndNotify();
   }

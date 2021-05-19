@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CalendarGuard } from './../core/auth/calendar.guard';
-import { TimeTableComponent } from './calendar/time-table.component';
-import { EventHubComponent } from './event-hub/event-hub.component';
+import { CalendarGuard } from '../core/guards/calendar.guard';
 import { AboutComponent } from './about/about.component';
+import { TimeTableComponent } from './calendar/time-table.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { EventHubComponent } from './event-hub/event-hub.component';
 
 const pageRoutes: Routes = [
   {

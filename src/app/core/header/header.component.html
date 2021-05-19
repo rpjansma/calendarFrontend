@@ -2,7 +2,7 @@
   class="
     d-flex
     justify-content-between
-    navbar navbar-expand navbar-collapse navbar-nav-scroll navbar-dark
+    navbar navbar-expand navbar-collapse navbar-dark
   "
   style="background-color: #788fa5"
 >
@@ -23,12 +23,13 @@
         >Home</a
       >
     </li>
-    <li class="nav-item">
+    <li class="nav-item" >
       <a
         class="nav-link"
         [routerLink]="['hub']"
         [class.active]="aba == 'hub'"
         (click)="aba = 'hub'"
+        *ngIf="isLogged()"
         >Event Hub</a
       >
     </li>

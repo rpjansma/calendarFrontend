@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './../user-service/user.service';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  Router
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+
+import { UserService } from '../user-service/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarGuard implements CanActivate {
