@@ -5,6 +5,15 @@ h4 {
 input::placeholder {
   font-size: 0.8rem;
   color: #606060;
+  
+}
+a {
+  text-decoration: none;
+  transition: 0.5s ease-in-out;
+  &:hover{
+    color: indigo;
+    transition: 0.5s ease-in-out;
+  }
 }
 
 button {

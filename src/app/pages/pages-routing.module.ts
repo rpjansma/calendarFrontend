@@ -11,6 +11,7 @@ const pageRoutes: Routes = [
   {
     path: 'calendar',
     canActivate: [CalendarGuard],
+    canLoad: [CalendarGuard],
     component: TimeTableComponent,
   },
 
