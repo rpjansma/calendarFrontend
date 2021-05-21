@@ -1,4 +1,4 @@
-<img class="img-fluid" src="../../../assets/img/hub.svg" alt="" />
+<img class="img-fluid d-xl-none" src="../../../assets/img/hub.svg" alt="" />
 
 <div class="container mt-2">
   <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
@@ -19,10 +19,10 @@
     *ngIf="event$ | async as events; else dataEmpty"
   >
     <div
-      class="d-inline-flex justify-content-center col-lg-3 col-sm-6"
+      class="d-inline-flex justify-content-center col-xl-3 col-lg-4 col-md-5 col-sm-6"
       *ngFor="let event of events"
     >
-      <app-card-cursos class="" [event]="event"></app-card-cursos>
+      <card-cursos class="" [event]="event"></card-cursos>
     </div>
   </div>
 

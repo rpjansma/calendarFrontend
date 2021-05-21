@@ -1,5 +1,6 @@
 span {
   color: #dce6f1;
+
   a {
     color: #6c49a8;
   }
@@ -18,8 +19,6 @@ a:hover {
   color: #c0bec7;
   transition: 0.5s ease-in-out;
 }
-
-
 
 li a:hover {
   background-color: #dbd8e323;
@@ -46,5 +45,8 @@ li a:hover {
     }
   }
 
+  span {
+    font-size: 14px
+  }
 
 }

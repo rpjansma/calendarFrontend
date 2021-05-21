@@ -7,10 +7,17 @@ div {
   transition: 0.2s ease;
 }
 
+input{
+  border: 2px solid #6060608f;
+  border-radius: 5px ;
+}
+
 @media (max-width: 700px) {
 
   h1 {
     font-size: 35px;
+    transition: .4s ease;
+
   }
   input {
     width: 236px
@@ -21,8 +28,28 @@ div {
 
   h1 {
     font-size: 30px;
+    transition: .4s ease;
+
   }
   input {
     width: 156px
+  }
+}
+
+@media (max-width: 350px) {
+
+  h1 {
+    font-size: 25px;
+    transition: .4s ease;
+
+  }
+  input {
+    width: 106px;
+    transition: .4s ease;
+
+      &:focus{
+        width: 156px;
+        transition: .4s ease;
+      }
   }
 }

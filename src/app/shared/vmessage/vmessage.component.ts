@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component ({
-  selector: 'ap-vmessage',
+  selector: 'error-message',
   templateUrl: './vmessage.component.html',
   styleUrls: ['./vmessage.component.scss']
 })

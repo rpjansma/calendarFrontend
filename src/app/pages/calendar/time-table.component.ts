@@ -17,7 +17,7 @@ import { TokenService } from '../../core/token/token.service';
 import { UserService } from '../../core/user-service/user.service';
 
 @Component({
-  selector: 'c-calendar',
+  selector: 'calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './time-table.component.html',
   styleUrls: ['./time-table.component.scss'],

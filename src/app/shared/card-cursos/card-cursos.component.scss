@@ -1,8 +1,13 @@
+.card-title{
+  font-size: 16px;
+}
+
 .card-body{
   background-color: #cbcad3f6;
   width: 230px;
   transition: .2s ease-in-out;
 }
+
 .card-footer{
   background-color: #cbcad3dc;
   transition: .2s ease-in-out;
@@ -18,9 +23,6 @@ label {
 
 @media (max-width: 485px) {
 
-  .card-title{
-    font-size: 18px;
-  }
   .card-text {
     font-size: 14px;
   }
