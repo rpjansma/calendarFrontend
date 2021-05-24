@@ -29,6 +29,7 @@
     "noImplicitAny":false,
     "strictNullChecks": false,
     "allowJs": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "enableIvy": false
   }
 }

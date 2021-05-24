@@ -16,21 +16,6 @@ export class SignInComponent implements OnInit {
   loginForm: FormGroup;
   @ViewChild('usernameInput') usernameInput: ElementRef<HTMLInputElement>;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router,
-    private platformDetectorService: PlatformDetector
-  ) {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
-
-  ngOnInit(): void {}
-
   login() {
     const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
@@ -50,5 +35,26 @@ export class SignInComponent implements OnInit {
         alert('Invalid username or password');
       }
     );
+  }
+
+  isRequiredAndTouched(value: string) {
+    this.loginForm.controls[value].touched;
+  }
+
+  ngOnInit(): void {
+    console.log(this.isRequiredAndTouched('username'));
+  }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router,
+    private platformDetectorService: PlatformDetector
+  ) {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 }
