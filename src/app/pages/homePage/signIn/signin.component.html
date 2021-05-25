@@ -1,7 +1,12 @@
 <div class="container mt-5">
   <h4 class="text-center">Sign In</h4>
 
-  <form [formGroup]="loginForm" class="form mt-4" (submit)="login()">
+  <form
+    [formGroup]="loginForm"
+    class="form mt-4"
+    (submit)="login()"
+    *ngIf="!loading"
+  >
     <div class="form-group">
       <input
         #usernameInput
@@ -11,10 +16,7 @@
         placeholder="Username"
       />
       <error-message
-        *ngIf="
-          loginForm.get('username')?.errors?.required &&
-          loginForm.controls['username'].touched
-        "
+        *ngIf="isRequiredAndTouched('username')"
         text="Username is required"
       ></error-message>
     </div>
@@ -25,14 +27,10 @@
         type="password"
         class="form-control"
         [class.is-valid]="loginForm.controls['password'].valid"
-
         placeholder="Password"
       />
       <error-message
-        *ngIf="
-          loginForm.get('password')?.errors?.required &&
-          loginForm.controls['password'].touched
-        "
+        *ngIf="isRequiredAndTouched('password')"
         text="Password is required"
       ></error-message>
     </div>
@@ -45,6 +43,8 @@
       Login
     </button>
   </form>
+
+  <modal-loading *ngIf="loading"></modal-loading>
 
   <p class="text-center mt-2">
     Not a user? <a [routerLink]="['/register']">Register</a>

@@ -13,6 +13,5 @@ export class CardCursosComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.color1);
   }
 }

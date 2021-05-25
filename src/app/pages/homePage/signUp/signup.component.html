@@ -1,7 +1,12 @@
 <div class="container mt-5">
   <h4 class="text-center">Register</h4>
 
-  <form [formGroup]="registerForm" class="form mt-4" (submit)="register()">
+  <form
+    [formGroup]="registerForm"
+    class="form mt-4"
+    (submit)="register()"
+    *ngIf="!loading"
+  >
     <div class="form-group">
       <input
         #usernameInput
@@ -10,10 +15,7 @@
         placeholder="Username"
       />
       <error-message
-        *ngIf="
-          registerForm.get('username')?.errors?.required &&
-          registerForm.controls['username'].touched
-        "
+        *ngIf="isRequiredAndTouched('username')"
         text="Username is required"
       ></error-message>
       <error-message
@@ -37,16 +39,11 @@
         class="form-control"
         placeholder="Email"
       />
-      <small
-        id="emailHelp"
-        class="form-text text-muted"
+      <small id="emailHelp" class="form-text text-muted"
         >We'll never share your email with anyone.</small
       >
       <error-message
-        *ngIf="
-          registerForm.get('email')?.errors?.required &&
-          registerForm.controls['email'].touched
-        "
+        *ngIf="isRequiredAndTouched('email')"
         text="Email is required"
       ></error-message>
       <error-message
@@ -64,10 +61,7 @@
         #password
       />
       <error-message
-        *ngIf="
-          registerForm.get('password')?.errors?.required &&
-          registerForm.controls['password'].touched
-        "
+        *ngIf="isRequiredAndTouched('password')"
         text="Password is required"
       ></error-message>
       <error-message
@@ -106,4 +100,6 @@
       Already a user? <a [routerLink]="['']">Sign In!</a>
     </p>
   </form>
+
+  <modal-loading *ngIf="loading"></modal-loading>
 </div>
