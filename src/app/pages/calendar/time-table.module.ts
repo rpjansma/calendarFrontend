@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { EventService } from '../../core/event-service/event.service';
 import { SharedModule } from '../../shared/shared.module';
 import { TimeTableComponent } from './time-table.component';
 
@@ -25,6 +24,6 @@ import { TimeTableComponent } from './time-table.component';
   ],
   exports: [],
   declarations: [TimeTableComponent],
-  providers: [EventService],
+  providers: [],
 })
 export class TimeTableModule {}

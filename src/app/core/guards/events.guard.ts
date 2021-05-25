@@ -6,7 +6,7 @@ import {
 import { UserService } from '../user-service/user.service';
 
 @Injectable({ providedIn: 'root' })
-export class CalendarGuard implements CanActivate, CanLoad {
+export class EventGuard implements CanActivate, CanLoad {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

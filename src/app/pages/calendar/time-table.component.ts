@@ -1,19 +1,16 @@
 import {
     CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView
 } from 'angular-calendar';
-import {
-    addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays
-} from 'date-fns';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { isSameDay, isSameMonth } from 'date-fns';
+import { BehaviorSubject } from 'rxjs';
 
 import {
     ChangeDetectionStrategy, Component, EventEmitter, OnInit, TemplateRef, ViewChild
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventService } from '../../core/event-service/event.service';
-import { TokenService } from '../../core/token/token.service';
 import { UserService } from '../../core/user-service/user.service';
 
 @Component({
@@ -48,6 +45,11 @@ export class TimeTableComponent implements OnInit {
         this.deleteEvent(event);
       },
     },
+    {
+      label: '<i class="ml-2 spinner-grow-sm" *ngIf="loading"></i>',
+      a11yLabel: 'Loading',
+      onClick: ({ event }: { event: CalendarEvent }): void => {},
+    },
   ];
 
   modalContentData: {
@@ -61,22 +63,7 @@ export class TimeTableComponent implements OnInit {
 
   eventEmissor = new EventEmitter();
 
-  public loading: boolean = false;
-
-  constructor(
-    private eventService: EventService,
-    private modal: NgbModal,
-    private formBuilder: FormBuilder,
-    private tokenService: TokenService,
-    private userService: UserService
-  ) {
-    this.eventForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      start: ['', Validators.required],
-      end: ['', Validators.required],
-    });
-
-  }
+  loading: boolean = false;
 
   setView(view: CalendarView) {
     this.view = view;
@@ -173,8 +160,6 @@ export class TimeTableComponent implements OnInit {
 
     this.createEvent(user, title, start, end);
     this.eventForm.reset();
-    this.fetchEventList();
-    this.modal.dismissAll();
   }
 
   editEvent() {
@@ -186,30 +171,69 @@ export class TimeTableComponent implements OnInit {
     this.updateEvent(id, title, start, end);
 
     this.eventForm.reset();
-    this.fetchEventList();
-    this.modal.dismissAll();
-    this.closeOpenMonthViewDay();
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent, id: any = ''): void {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-    id = eventToDelete.id;
-    this.eventService.deleteEvent(id).subscribe();
-    this.refresh.next(this.events);
     this.closeOpenMonthViewDay();
   }
 
   createEvent(user, title, start, end) {
-    this.eventService.createEvent(user, title, start, end).subscribe();
+    this.loading = true;
+    this.eventService.createEvent(user, title, start, end).subscribe(
+      () => {
+        this.loading = false;
+        this.fetchEventList();
+        this.modal.dismissAll();
+      },
+      () => {}
+    );
     return;
   }
 
   updateEvent(id, title, start, end) {
-    this.eventService.updateEvent(id, title, start, end).subscribe();
+    this.loading = true;
+    this.eventService.updateEvent(id, title, start, end).subscribe(
+      () => {
+        this.loading = false;
+        this.fetchEventList();
+
+        this.modal.dismissAll();
+      },
+      () => {}
+    );
     return;
+  }
+
+  deleteEvent(eventToDelete: CalendarEvent, id: any = ''): void {
+    this.loading = true;
+    this.events = this.events.filter((event) => event !== eventToDelete);
+    id = eventToDelete.id;
+    this.eventService.deleteEvent(id).subscribe(
+      () => {
+        this.fetchEventList();
+        this.loading = false;
+      },
+      () => {}
+    );
+    this.refresh.next(this.events);
+    this.closeOpenMonthViewDay();
+  }
+
+  isRequiredAndTouched(control: string) {
+    return !this.eventForm.get(control).valid && this.eventForm.get(control).touched;
   }
 
   ngOnInit(): void {
     this.fetchEventList();
+  }
+
+  constructor(
+    private eventService: EventService,
+    private modal: NgbModal,
+    private formBuilder: FormBuilder,
+    private userService: UserService
+  ) {
+    this.eventForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+    });
   }
 }

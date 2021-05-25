@@ -7,11 +7,39 @@ import { UserService } from '../../../core/user-service/user.service';
 
 @Component({
   templateUrl: './signup.component.html',
-  styleUrls: ['../home.component.scss']
+  styleUrls: ['../home.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  registerForm: FormGroup;
   @ViewChild('usernameInput') usernameInput: ElementRef<HTMLInputElement>;
+  registerForm: FormGroup;
+  loading: boolean = false;
+
+  isRequiredAndTouched(control: string) {
+    return (
+      !this.registerForm.get(control).valid &&
+      this.registerForm.get(control).touched
+    );
+  }
+
+  register() {
+    const username = this.registerForm.get('username')?.value;
+    const email = this.registerForm.get('email')?.value;
+    const password = this.registerForm.get('password')?.value;
+    this.loading = true;
+    this.userService.createUser(username, email, password).subscribe(
+      () => {
+        this.loading = false;
+        this.router.navigate(['']);
+      },
+      (error) => {
+        console.log(error);
+        this.registerForm.reset();
+        this.platformDetectorService.isBrowser() &&
+          this.usernameInput.nativeElement.focus();
+        alert('ERROR: Try again, please.');
+      }
+    );
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,32 +66,9 @@ export class SignUpComponent implements OnInit {
           Validators.maxLength(20),
         ],
       ],
-      passwordRepeat: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern
-        ]
-      ]
+      passwordRepeat: ['', [Validators.required, Validators.pattern]],
     });
   }
 
   ngOnInit(): void {}
-
-  register() {
-    const username = this.registerForm.get('username')?.value;
-    const email = this.registerForm.get('email')?.value;
-    const password = this.registerForm.get('password')?.value;
-
-    this.userService.createUser(username, email, password).subscribe(
-      () => this.router.navigate(['']),
-      (error) => {
-        console.log(error);
-        this.registerForm.reset();
-        this.platformDetectorService.isBrowser() &&
-          this.usernameInput.nativeElement.focus();
-        alert('ERROR: Try again, please.');
-      }
-    );
-  }
 }

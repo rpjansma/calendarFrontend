@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { timeout } from 'rxjs/operators';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,31 +15,36 @@ import { UserService } from '../../../core/user-service/user.service';
 })
 export class SignInComponent implements OnInit {
   loginForm: FormGroup;
+  loading: boolean = false;
+
   @ViewChild('usernameInput') usernameInput: ElementRef<HTMLInputElement>;
 
   login() {
     const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
 
+    this.loading = true;
+
     this.authService.authenticate(username, password).subscribe(
       (data) => {
-        console.log(data);
         const authToken = data.headers.get('x-access-token');
         this.userService.setToken(authToken);
+        this.loading = false;
         this.router.navigate(['calendar']);
       },
       (error) => {
+        this.loading = false;
+        alert('Invalid username or password');
         console.log(error);
         this.loginForm.reset();
         this.platformDetectorService.isBrowser() &&
           this.usernameInput.nativeElement.focus();
-        alert('Invalid username or password');
       }
     );
   }
 
-  isRequiredAndTouched(value: string) {
-    this.loginForm.controls[value].touched;
+  isRequiredAndTouched(control: string) {
+    return !this.loginForm.get(control).valid && this.loginForm.get(control).touched;
   }
 
   ngOnInit(): void {

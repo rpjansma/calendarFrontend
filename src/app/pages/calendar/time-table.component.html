@@ -11,12 +11,9 @@
       <form [formGroup]="eventForm" class="form" *ngIf="!loading">
         <div class="form-group">
           <label>Title</label>
-          <input formControlName="title" class="form-control"  />
+          <input formControlName="title" class="form-control" />
           <error-message
-            *ngIf="
-              eventForm.get('title')?.errors?.required &&
-              eventForm.controls['title'].touched
-            "
+            *ngIf="isRequiredAndTouched('title')"
             text="Title is required"
           ></error-message>
         </div>
@@ -24,30 +21,13 @@
         <div class="form-group">
           <label class="form-label">Start date</label>
 
-          <!-- <div class="row">
-            <div class="col-xs-12 col-md-5 col-lg-4 form-group">
-              <input
-                class="form-control"
-                #datepickerFull="bsDatepicker"
-                bsDatepicker
-                formControlName="dateFull"
-                [bsConfig]="{ dateInputFormat: 'MMMM Do YYYY, hh:mm:ss a' }">
-            </div>
-            <div class="col-xs-12 col-12 col-md-3 form-group">
-              <button class="btn btn-success" (click)="datepickerFull.toggle()" [attr.aria-expanded]="datepickerFull.isOpen" type="button">Date Picker</button>
-            </div>
-          </div> -->
-
           <input
             formControlName="start"
             type="datetime-local"
             class="form-control"
           />
           <error-message
-            *ngIf="
-              eventForm.get('start')?.errors?.required &&
-              eventForm.controls['start'].touched
-            "
+            *ngIf="isRequiredAndTouched('start')"
             text="Start date is required"
           ></error-message>
         </div>
@@ -60,20 +40,19 @@
             class="form-control"
           />
           <error-message
-            *ngIf="
-              eventForm.get('end')?.errors?.required &&
-              eventForm.controls['end'].touched
-            "
+            *ngIf="isRequiredAndTouched('end')"
             text="End date is required"
           ></error-message>
         </div>
       </form>
 
-      <div class="d-flex justify-content-center" *ngIf="loading">
+      <modal-loading *ngIf="loading"></modal-loading>
+
+      <!-- <div class="d-flex justify-content-center" *ngIf="loading">
         <div class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="modal-footer">
@@ -208,13 +187,9 @@
           formControlName="title"
           class="form-control"
           ngModel="{{ modalContentData?.event.title }}"
-          
         />
         <error-message
-          *ngIf="
-            eventForm.get('title')?.errors?.required &&
-            eventForm.controls['title'].touched
-          "
+          *ngIf="isRequiredAndTouched('start')"
           text="Title is required"
         ></error-message>
       </div>
@@ -231,10 +206,7 @@
               [bsConfig]="{ isAnimated: true }"
             />
             <error-message
-              *ngIf="
-                eventForm.get('start')?.errors?.required &&
-                eventForm.controls['start'].touched
-              "
+              *ngIf="isRequiredAndTouched('start')"
               text="Start date is required"
             ></error-message>
           </div>
@@ -248,10 +220,7 @@
               [bsConfig]="{ isAnimated: true }"
             />
             <error-message
-              *ngIf="
-                eventForm.get('end')?.errors?.required &&
-                eventForm.controls['end'].touched
-              "
+              *ngIf="isRequiredAndTouched('end')"
               text="End date is required"
             ></error-message>
           </div>
