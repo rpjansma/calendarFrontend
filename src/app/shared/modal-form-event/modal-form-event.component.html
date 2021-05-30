@@ -1,6 +1,12 @@
 <div>
   <header class="modal-header">
     <h4 class="modal-title">Event Update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.close('Cross click')"
+    ></button>
   </header>
 
   <div class="modal-body">
@@ -57,12 +63,9 @@
       type="button"
       [disabled]="eventForm.invalid"
       class="btn btn-outline-primary"
-      (click)="sendEvent()"
+      (click)="(sendEvent)"
     >
       Update Event
-    </button>
-    <button type="button" class="btn btn-outline-secondary" (click)="sendEvent">
-      Close
     </button>
   </footer>
 </div>
