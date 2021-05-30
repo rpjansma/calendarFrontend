@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from '../../shared/shared.module';
 import { TimeTableComponent } from './time-table.component';
+import { FormModalComponent } from './form-modal/form-modal/form-modal.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { TimeTableComponent } from './time-table.component';
     SharedModule,
   ],
   exports: [],
-  declarations: [TimeTableComponent],
+  declarations: [TimeTableComponent, FormModalComponent],
   providers: [],
 })
 export class TimeTableModule {}
