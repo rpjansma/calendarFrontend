@@ -3,7 +3,7 @@ import {
     ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot
 } from '@angular/router';
 
-import { UserService } from '../user-service/user.service';
+import { UserService } from '../services/user-service/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class EventGuard implements CanActivate, CanLoad {

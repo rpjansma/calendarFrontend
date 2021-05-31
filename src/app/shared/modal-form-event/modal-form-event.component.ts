@@ -1,15 +1,15 @@
 import { CalendarEvent } from 'angular-calendar';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'modal-form-event',
   templateUrl: './modal-form-event.component.html',
   styleUrls: ['./modal-form-event.component.scss'],
 })
-export class FormModalComponent implements OnInit {
+export class ModalFormEventComponent implements OnInit {
   eventForm: FormGroup;
   modalContentData: {
     action: string;
@@ -18,15 +18,18 @@ export class FormModalComponent implements OnInit {
 
   @Input() sendEvent;
 
-
   isRequiredAndTouched(control: string) {
     return (
       !this.eventForm.get(control).valid && this.eventForm.get(control).touched
     );
   }
 
+  onClose() {
+    this.activeModal.hide();
+  }
+
   constructor(
-    public activeModal: NgbActiveModal,
+    public activeModal: BsModalRef,
     private formBuilder: FormBuilder
   ) {
     this.eventForm = this.formBuilder.group({

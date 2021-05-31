@@ -3,8 +3,8 @@ import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { EventService } from '../../core/event-service/event.service';
-import { UserService } from '../../core/user-service/user.service';
+import { EventService } from '../../core/services/event-service/event.service';
+import { UserService } from '../../core/services/user-service/user.service';
 
 @Component({
   selector: 'event-hub',
