@@ -6,8 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/auth/auth.service';
-import { PlatformDetector } from '../../../core/plataform-detector/plataform-detector.service';
-import { UserService } from '../../../core/user-service/user.service';
+import {
+    PlatformDetector
+} from '../../../core/services/plataform-detector/plataform-detector.service';
+import { UserService } from '../../../core/services/user-service/user.service';
 
 @Component({
   templateUrl: './signin.component.html',
@@ -44,7 +46,9 @@ export class SignInComponent implements OnInit {
   }
 
   isRequiredAndTouched(control: string) {
-    return !this.loginForm.get(control).valid && this.loginForm.get(control).touched;
+    return (
+      !this.loginForm.get(control).valid && this.loginForm.get(control).touched
+    );
   }
 
   ngOnInit(): void {

@@ -1,17 +1,20 @@
+import { BsModalService } from 'ngx-bootstrap/modal';
+
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { RequestInterceptor } from './auth/request.interceptor';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
   exports: [HeaderComponent, FooterComponent],
   imports: [CommonModule, RouterModule],
   providers: [
+    BsModalService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

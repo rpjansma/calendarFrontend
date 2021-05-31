@@ -133,7 +133,7 @@
     </div>
 
     <div class="col-sm-12 col-md-4">
-      <button class="btn btn-primary" (click)="open(modalEvent)">+Event</button>
+      <button class="btn btn-primary" (click)="getModal()">+Event</button>
     </div>
   </div>
 
@@ -170,76 +170,5 @@
     </mwl-calendar-day-view>
   </div>
 </body>
-
 <ng-template #modalContent let-close="close">
-  <header class="modal-header">
-    <h4 class="modal-title">Event Update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </header>
-
-  <div class="modal-body">
-    <form [formGroup]="eventForm" class="form">
-      <div class="form-group">
-        <label>Title</label>
-        <input
-          formControlName="title"
-          class="form-control"
-          ngModel="{{ modalContentData?.event.title }}"
-        />
-        <error-message
-          *ngIf="isRequiredAndTouched('start')"
-          text="Title is required"
-        ></error-message>
-      </div>
-
-      <div class="form-group">
-        <div class="row">
-          <div class="col-xs-12 col-12 col-md-4 form-group">
-            <input
-              type="text"
-              placeholder="Start Date"
-              formControlName="start"
-              class="form-control"
-              bsDatepicker
-              [bsConfig]="{ isAnimated: true }"
-            />
-            <error-message
-              *ngIf="isRequiredAndTouched('start')"
-              text="Start date is required"
-            ></error-message>
-          </div>
-          <div class="col-xs-12 col-12 col-md-4 form-group">
-            <input
-              type="text"
-              placeholder="End Date"
-              formControlName="end"
-              class="form-control"
-              bsDaterangepicker
-              [bsConfig]="{ isAnimated: true }"
-            />
-            <error-message
-              *ngIf="isRequiredAndTouched('end')"
-              text="End date is required"
-            ></error-message>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <footer class="modal-footer">
-    <button
-      type="button"
-      [disabled]="eventForm.invalid"
-      class="btn btn-outline-primary"
-      (click)="editEvent()"
-    >
-      Update Event
-    </button>
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">
-      Close
-    </button>
-  </footer>
 </ng-template>

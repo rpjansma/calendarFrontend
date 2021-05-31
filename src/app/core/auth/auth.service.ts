@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
+import { UserService } from '../services/user-service/user.service';
 import { TokenService } from '../token/token.service';
-import { UserService } from '../user-service/user.service';
 
 const API_URL = environment.api;
 
@@ -37,7 +37,7 @@ export class AuthService {
       )
       .pipe(
         map((data) => {
-          return data
+          return data;
         })
       );
   }

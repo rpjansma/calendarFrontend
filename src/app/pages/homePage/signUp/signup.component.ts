@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { PlatformDetector } from '../../../core/plataform-detector/plataform-detector.service';
-import { UserService } from '../../../core/user-service/user.service';
+import {
+    PlatformDetector
+} from '../../../core/services/plataform-detector/plataform-detector.service';
+import { UserService } from '../../../core/services/user-service/user.service';
 
 @Component({
   templateUrl: './signup.component.html',

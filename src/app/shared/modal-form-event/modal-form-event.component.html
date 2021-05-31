@@ -1,0 +1,35 @@
+<div>
+  <header class="modal-header">
+    <h4 class="modal-title">Event Update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.hide()"
+    ></button>
+  </header>
+
+  <div class="modal-body">
+    <p>Pingulinho</p>
+  </div>
+
+  <footer class="modal-footer">
+    <button
+      type="button"
+      [disabled]="eventForm.invalid"
+      class="btn btn-outline-primary"
+      (click)="(sendEvent)"
+    >
+      Update Event
+    </button>
+
+    <button
+      type="button"
+      [disabled]="eventForm.invalid"
+      class="btn btn-outline-primary"
+      (click)="onClose()"
+    >
+      Update Event
+    </button>
+  </footer>
+</div>

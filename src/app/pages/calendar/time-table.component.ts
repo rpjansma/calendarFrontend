@@ -3,6 +3,9 @@ import {
 } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { BehaviorSubject } from 'rxjs';
+import {
+    ModalFormEventService
+} from 'src/app/core/services/modal-services/modal-form-event.service';
 
 import {
     ChangeDetectionStrategy, Component, EventEmitter, OnInit, TemplateRef, ViewChild
@@ -10,8 +13,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { EventService } from '../../core/event-service/event.service';
-import { UserService } from '../../core/user-service/user.service';
+import { EventService } from '../../core/services/event-service/event.service';
+import { UserService } from '../../core/services/user-service/user.service';
 
 @Component({
   selector: 'calendar',
@@ -114,9 +117,16 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
+  getModal(){
+    this.modalFormEventService.showEventForm(this.batata())
+  }
+
+  batata(){
+    console.log('batata')
+  }
+
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalContentData = { event, action };
-    this.modal.open(this.modalContent);
   }
 
   getTimezoneOffsetString(date: Date): string {
@@ -217,7 +227,9 @@ export class TimeTableComponent implements OnInit {
   }
 
   isRequiredAndTouched(control: string) {
-    return !this.eventForm.get(control).valid && this.eventForm.get(control).touched;
+    return (
+      !this.eventForm.get(control).valid && this.eventForm.get(control).touched
+    );
   }
 
   ngOnInit(): void {
@@ -228,7 +240,8 @@ export class TimeTableComponent implements OnInit {
     private eventService: EventService,
     private modal: NgbModal,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private modalFormEventService: ModalFormEventService
   ) {
     this.eventForm = this.formBuilder.group({
       title: ['', Validators.required],
