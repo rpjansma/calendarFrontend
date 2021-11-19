@@ -24,7 +24,6 @@ import { UserService } from '../../core/services/user-service/user.service';
 })
 export class TimeTableComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
   eventForm: FormGroup;
 
   view: CalendarView = CalendarView.Month;
@@ -117,16 +116,14 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  getModal(){
-    this.modalFormEventService.showEventForm(this.batata())
+  getModal(modalzinho) {
+    this.modalFormEventService.showEventForm(modalzinho);
   }
 
-  batata(){
-    console.log('batata')
-  }
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalContentData = { event, action };
+    this.modal.open(this.modalContent);
   }
 
   getTimezoneOffsetString(date: Date): string {
