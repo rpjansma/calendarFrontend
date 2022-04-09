@@ -32,6 +32,10 @@ import { ModalLoadingComponent } from './modal-loading/modal-loading.component';
     ModalLoadingComponent,
     ModalFormEventComponent,
   ],
-  entryComponents: [ModalErrorComponent, ModalLoadingComponent, ModalFormEventComponent],
+  entryComponents: [
+    ModalErrorComponent,
+    ModalLoadingComponent,
+    ModalFormEventComponent,
+  ],
 })
 export class SharedModule {}

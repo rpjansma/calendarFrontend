@@ -1,4 +1,5 @@
-<body class="container-fluid mt-3 justify-content pt-0">
+<body class="container-fluid mt-3">
+
   <ng-template #modalEvent let-close="close" class="modal fade" role="dialog">
     <div #modalEventContent class="modal-header">
       <h4 class="modal-title">New Event</h4>
@@ -47,12 +48,6 @@
       </form>
 
       <modal-loading *ngIf="loading"></modal-loading>
-
-      <!-- <div class="d-flex justify-content-center" *ngIf="loading">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div> -->
     </div>
 
     <div class="modal-footer">
@@ -101,10 +96,6 @@
       </div>
     </div>
 
-    <!-- <app-modal-error
-      text="We got an error, chief, sorry :("
-      *ngIf="loading"
-    ></app-modal-error> -->
 
     <div class="col-sm-6 col-md-4 mb-2" #Control>
       <div class="btn-group">
@@ -181,26 +172,59 @@
     <form [formGroup]="eventForm" class="form">
       <div class="form-group">
         <label>Title</label>
-        <input formControlName="title" class="form-control" ngModel="{{ modalContentData?.event.title }}" autofocus>
-        <error-message *ngIf="eventForm.get('title')?.errors?.required && eventForm.controls['title'].touched"
-          text="Title is required"></error-message>
+        <input
+          formControlName="title"
+          class="form-control"
+          ngModel="{{ modalContentData?.event.title }}"
+          autofocus
+        />
+        <error-message
+          *ngIf="
+            eventForm.get('title')?.errors?.required &&
+            eventForm.controls['title'].touched
+          "
+          text="Title is required"
+        ></error-message>
       </div>
       <div class="form-group">
         <label>Start date</label>
-        <input formControlName="start" type="datetime-local" class="form-control">
-        <error-message *ngIf="eventForm.get('start')?.errors?.required && eventForm.controls['start'].touched"
-          text="Start date is required"></error-message>
+        <input
+          formControlName="start"
+          type="datetime-local"
+          class="form-control"
+        />
+        <error-message
+          *ngIf="
+            eventForm.get('start')?.errors?.required &&
+            eventForm.controls['start'].touched
+          "
+          text="Start date is required"
+        ></error-message>
       </div>
       <div class="form-group">
         <label>End date</label>
-        <input formControlName="end" type="datetime-local" class="form-control">
-        <error-message *ngIf="eventForm.get('end')?.errors?.required && eventForm.controls['end'].touched"
-          text="End date is required"></error-message>
+        <input
+          formControlName="end"
+          type="datetime-local"
+          class="form-control"
+        />
+        <error-message
+          *ngIf="
+            eventForm.get('end')?.errors?.required &&
+            eventForm.controls['end'].touched
+          "
+          text="End date is required"
+        ></error-message>
       </div>
     </form>
   </div>
   <footer class="modal-footer">
-    <button type="button" [disabled]="eventForm.invalid" class="btn btn-outline-primary" (click)="editEvent()">
+    <button
+      type="button"
+      [disabled]="eventForm.invalid"
+      class="btn btn-outline-primary"
+      (click)="editEvent()"
+    >
       Update Event
     </button>
     <button type="button" class="btn btn-outline-secondary" (click)="close()">

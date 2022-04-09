@@ -120,7 +120,6 @@ export class TimeTableComponent implements OnInit {
     this.modalFormEventService.showEventForm(modalzinho);
   }
 
-
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalContentData = { event, action };
     this.modal.open(this.modalContent);
@@ -141,21 +140,24 @@ export class TimeTableComponent implements OnInit {
     const id = this.userService.getUserId();
     this.events = [];
     this.eventService.getUserEvents(id).subscribe((res) => {
-      for (let i = 0; i < res.length; i++) {
-        this.events.push({
-          id: res[i]._id,
-          title: res[i].title,
-          start: new Date(res[i].start),
-          end: new Date(res[i].end),
-          draggable: true,
-          actions: this.actions,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
-          },
-        });
+      if (res != null) {
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          this.events.push({
+            id: res[i]._id,
+            title: res[i].title,
+            start: new Date(res[i].start),
+            end: new Date(res[i].end),
+            draggable: true,
+            actions: this.actions,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+          });
+        }
+        this.refresh.next(this.events);
       }
-      this.refresh.next(this.events);
     });
   }
 

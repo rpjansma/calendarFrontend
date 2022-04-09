@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../../environments/environment';
-import { User } from '../../../shared/interfaces/user-interface';
+import { User } from '../../../shared/model/user-interface';
 import { TokenService } from '../../token/token.service';
 
 const API_URL = environment.api;

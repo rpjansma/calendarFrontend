@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from '../../../shared/interfaces/user-interface';
+import { User } from '../../../shared/model/user-interface';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../services/user-service/user.service';
 
